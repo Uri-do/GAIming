@@ -85,6 +85,13 @@ const navigationItems: NavigationItem[] = [
     badge: 'New',
   },
   {
+    id: 'auth-test',
+    label: 'Auth Test',
+    path: '/auth-test',
+    icon: Shield,
+    badge: 'Test',
+  },
+  {
     id: 'admin-users',
     label: 'User Management',
     path: '/admin/users',

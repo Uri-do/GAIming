@@ -23,6 +23,7 @@ const RoleManagement = React.lazy(() => import('@/pages/admin/RoleManagement'))
 const PermissionManagement = React.lazy(() => import('@/pages/admin/PermissionManagement'))
 const UserActivity = React.lazy(() => import('@/pages/admin/UserActivity'))
 const UIShowcase = React.lazy(() => import('@/pages/UIShowcase'))
+const AuthTest = React.lazy(() => import('@/components/test/AuthTest'))
 const Login = React.lazy(() => import('@/pages/Login'))
 const NotFound = React.lazy(() => import('@/pages/NotFound'))
 
@@ -126,6 +127,9 @@ function App() {
 
             {/* UI Showcase */}
             <Route path="ui-showcase" element={<UIShowcase />} />
+
+            {/* Auth Test */}
+            <Route path="auth-test" element={<AuthTest />} />
 
             {/* Admin Routes */}
             <Route path="admin/users" element={<UserManagement />} />
