@@ -70,14 +70,9 @@ const Games: React.FC = () => {
   if (loading) {
     return (
       <div className="space-y-6">
-        <div className="relative">
-          <div className="absolute inset-0 bg-gradient-to-r from-primary-500/10 to-purple-500/10 rounded-lg -m-4" />
-          <div className="relative z-10 p-4">
-            <h1 className="text-4xl font-bold bg-gradient-to-r from-primary-400 via-purple-400 to-pink-400 bg-clip-text text-transparent">
-              Games
-            </h1>
-            <p className="text-gray-400 mt-2 text-lg">Manage and analyze your game catalog</p>
-          </div>
+        <div>
+          <h1 className="text-3xl font-bold text-gray-900 dark:text-white">Games</h1>
+          <p className="text-gray-600 dark:text-gray-400 mt-1">Manage and analyze your game catalog</p>
         </div>
         <Card variant="gaming" className="text-center">
           <CardContent className="p-8">
@@ -92,14 +87,9 @@ const Games: React.FC = () => {
   if (error) {
     return (
       <div className="space-y-6">
-        <div className="relative">
-          <div className="absolute inset-0 bg-gradient-to-r from-primary-500/10 to-purple-500/10 rounded-lg -m-4" />
-          <div className="relative z-10 p-4">
-            <h1 className="text-4xl font-bold bg-gradient-to-r from-primary-400 via-purple-400 to-pink-400 bg-clip-text text-transparent">
-              Games
-            </h1>
-            <p className="text-gray-400 mt-2 text-lg">Manage and analyze your game catalog</p>
-          </div>
+        <div>
+          <h1 className="text-3xl font-bold text-gray-900 dark:text-white">Games</h1>
+          <p className="text-gray-600 dark:text-gray-400 mt-1">Manage and analyze your game catalog</p>
         </div>
         <Card variant="gaming" className="border-error-500/30">
           <CardHeader variant="gaming">
@@ -126,16 +116,11 @@ const Games: React.FC = () => {
   return (
     <div className="space-y-6">
       {/* Header */}
-      <div className="relative">
-        <div className="absolute inset-0 bg-gradient-to-r from-primary-500/10 to-purple-500/10 rounded-lg -m-4" />
-        <div className="relative z-10 p-4">
-          <h1 className="text-4xl font-bold bg-gradient-to-r from-primary-400 via-purple-400 to-pink-400 bg-clip-text text-transparent">
-            Games
-          </h1>
-          <p className="text-gray-400 mt-2 text-lg">
-            Manage and analyze your game catalog ({pagination.totalCount} games)
-          </p>
-        </div>
+      <div>
+        <h1 className="text-3xl font-bold text-gray-900 dark:text-white">Games</h1>
+        <p className="text-gray-600 dark:text-gray-400 mt-1">
+          Manage and analyze your game catalog ({pagination.totalCount} games)
+        </p>
       </div>
 
       {/* Search and Filters */}

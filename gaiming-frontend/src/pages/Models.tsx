@@ -28,7 +28,6 @@ import AuthGuard, { usePermissions } from '../components/auth/AuthGuard';
 import { exportService } from '../services/exportService';
 
 const ModelsContent: React.FC = () => {
-  console.log('🚀 ModelsContent component rendering...');
   const navigate = useNavigate();
   const { canManageModels, canExportModels, canDeployModels } = usePermissions();
   const [models, setModels] = useState<MLModel[]>([]);
@@ -64,10 +63,7 @@ const ModelsContent: React.FC = () => {
     try {
       setLoading(true);
       setError(null);
-      console.log('🔄 Loading models...');
-
       const response = await mlModelsService.getModels(filters);
-      console.log('✅ Models loaded successfully:', response);
 
       setModels(response.items);
       setPagination({
@@ -101,16 +97,9 @@ const ModelsContent: React.FC = () => {
     } catch (err: any) {
       const errorMessage = err?.response?.data?.message || err?.message || 'Failed to load ML models';
       setError(`Error loading models: ${errorMessage}`);
-      console.error('❌ Error loading models:', err);
-      console.error('Error details:', {
-        status: err?.response?.status,
-        statusText: err?.response?.statusText,
-        data: err?.response?.data,
-        config: err?.config
-      });
+      console.error('Error loading models:', err);
     } finally {
       setLoading(false);
-      console.log('🏁 Loading finished');
     }
   };
 
@@ -204,11 +193,7 @@ const ModelsContent: React.FC = () => {
   if (loading && !models.length) {
     return (
       <div className="flex items-center justify-center h-64">
-        <div className="text-center">
-          <LoadingSpinner size="lg" />
-          <p className="mt-4 text-gray-600 dark:text-gray-400">Loading ML Models...</p>
-          <p className="text-sm text-gray-500 dark:text-gray-500">🚀 ModelsContent component is rendering</p>
-        </div>
+        <LoadingSpinner size="lg" />
       </div>
     );
   }

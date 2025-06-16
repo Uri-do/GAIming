@@ -149,7 +149,7 @@ const Sidebar: React.FC = () => {
         'bg-gradient-to-b from-gray-900 via-gray-800 to-gray-900',
         'border-r border-primary-500/20 shadow-xl shadow-primary-500/10',
         'backdrop-blur-sm',
-        sidebarCollapsed ? 'w-16' : 'w-64'
+        sidebarCollapsed ? 'w-16' : 'w-80'
       )}
     >
       {/* Logo and toggle */}

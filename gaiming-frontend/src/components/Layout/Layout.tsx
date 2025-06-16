@@ -17,7 +17,7 @@ const Layout: React.FC = () => {
       <div
         className={cn(
           'transition-all duration-300 ease-in-out',
-          sidebarCollapsed ? 'ml-16' : 'ml-64'
+          sidebarCollapsed ? 'ml-16' : 'ml-80'
         )}
       >
         {/* Header */}
@@ -25,7 +25,7 @@ const Layout: React.FC = () => {
 
         {/* Page content */}
         <main className="p-6">
-          <div className="max-w-7xl mx-auto">
+          <div className="w-full">
             <Outlet />
           </div>
         </main>

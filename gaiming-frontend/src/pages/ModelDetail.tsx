@@ -38,9 +38,7 @@ interface ModelPerformanceMetrics {
 }
 
 const ModelDetail: React.FC = () => {
-  console.log('🔍 ModelDetail component rendering...');
   const { modelId } = useParams<{ modelId: string }>()
-  console.log('📍 ModelDetail modelId:', modelId);
   const navigate = useNavigate()
   const [model, setModel] = useState<MLModel | null>(null)
   const [performance, setPerformance] = useState<ModelPerformanceMetrics | null>(null)

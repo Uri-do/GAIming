@@ -125,16 +125,11 @@ const Dashboard: React.FC = () => {
   return (
     <div className="space-y-6">
       {/* Header */}
-      <div className="relative">
-        <div className="absolute inset-0 bg-gradient-to-r from-primary-500/10 to-purple-500/10 rounded-lg -m-4" />
-        <div className="relative z-10 p-4">
-          <h1 className="text-4xl font-bold bg-gradient-to-r from-primary-400 via-purple-400 to-pink-400 bg-clip-text text-transparent">
-            Dashboard
-          </h1>
-          <p className="text-gray-400 mt-2 text-lg">
-            Welcome to GAIming - Your AI-powered gaming recommendation system
-          </p>
-        </div>
+      <div>
+        <h1 className="text-3xl font-bold text-gray-900 dark:text-white">Dashboard</h1>
+        <p className="text-gray-600 dark:text-gray-400 mt-1">
+          Welcome to GAIming - Your AI-powered gaming recommendation system
+        </p>
       </div>
 
       {/* Key Metrics */}
