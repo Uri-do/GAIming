@@ -79,14 +79,32 @@ export default function RecommendationsDashboard() {
   const queryClient = useQueryClient()
 
   // Fetch recommendation statistics
-  const { data: stats, isLoading: _ } = useQuery<RecommendationStats>({
+  const { data: statsResponse, isLoading: _ } = useQuery<any>({
     queryKey: ['recommendation-stats'],
     queryFn: () => apiService.get(API_ENDPOINTS.RECOMMENDATIONS.ANALYTICS),
     refetchInterval: 30000, // Refresh every 30 seconds
   })
 
+  // Extract stats from API response
+  const stats: RecommendationStats | undefined = statsResponse?.data ? {
+    totalRecommendations: statsResponse.data.totalRecommendations,
+    totalClicks: statsResponse.data.totalClicks,
+    totalPlays: statsResponse.data.totalPlays,
+    clickThroughRate: statsResponse.data.clickThroughRate / 100, // Convert percentage to decimal
+    conversionRate: statsResponse.data.conversionRate / 100, // Convert percentage to decimal
+    averageScore: statsResponse.data.averageScore,
+    activeAlgorithms: statsResponse.data.algorithmPerformance?.map((alg: any) => alg.algorithm) || [],
+    topPerformingGames: statsResponse.data.topPerformingGames?.map((game: any) => ({
+      gameId: game.gameId,
+      gameName: game.gameName,
+      clicks: game.clicks,
+      plays: game.plays,
+      ctr: game.clicks > 0 ? game.plays / game.clicks : 0
+    })) || []
+  } : undefined
+
   // Fetch recent recommendations
-  const { data: recommendations, isLoading: recommendationsLoading, refetch: refetchRecommendations } = useQuery<GameRecommendation[]>({
+  const { data: recommendationsResponse, isLoading: recommendationsLoading, refetch: refetchRecommendations } = useQuery<any>({
     queryKey: ['recommendations', selectedPlayerId, filterAlgorithm, searchTerm],
     queryFn: () => {
       let url = `${API_ENDPOINTS.RECOMMENDATIONS.BASE}?playerId=${selectedPlayerId}`
@@ -96,10 +114,41 @@ export default function RecommendationsDashboard() {
     },
   })
 
+  // Extract recommendations from API response
+  const recommendations: GameRecommendation[] = recommendationsResponse?.data?.items?.map((item: any) => ({
+    id: item.id,
+    playerId: item.playerId,
+    gameId: item.gameId,
+    game: {
+      gameId: item.game?.gameId || item.gameId,
+      gameName: item.game?.gameName || `Game ${item.gameId}`,
+      gameTypeName: item.game?.gameTypeName || 'Unknown',
+      providerName: item.game?.providerName || 'Unknown',
+      imageUrl: item.game?.imageUrl
+    },
+    score: item.score,
+    algorithm: item.algorithm,
+    reason: item.reason,
+    position: item.position,
+    category: item.category,
+    context: item.context,
+    isClicked: item.isClicked,
+    isPlayed: item.isPlayed,
+    generatedDate: item.generatedDate,
+    variant: item.variant
+  })) || []
+
   // Generate new recommendations mutation
   const generateRecommendationsMutation = useMutation({
-    mutationFn: (request: GenerateRecommendationsRequest) =>
-      apiService.post(API_ENDPOINTS.RECOMMENDATIONS.GENERATE, request),
+    mutationFn: (request: GenerateRecommendationsRequest) => {
+      const params = new URLSearchParams({
+        playerId: request.playerId.toString(),
+        algorithm: request.algorithm,
+        context: request.context,
+        count: request.count.toString()
+      })
+      return apiService.post(`${API_ENDPOINTS.RECOMMENDATIONS.GENERATE}?${params}`)
+    },
     onSuccess: () => {
       queryClient.invalidateQueries({ queryKey: ['recommendations'] })
       queryClient.invalidateQueries({ queryKey: ['recommendation-stats'] })
@@ -108,12 +157,12 @@ export default function RecommendationsDashboard() {
 
   // Record interaction mutation
   const recordInteractionMutation = useMutation({
-    mutationFn: ({ recommendationId, interactionType }: { recommendationId: number, interactionType: 'click' | 'play' }) =>
-      apiService.post(API_ENDPOINTS.RECOMMENDATIONS.INTERACTION, {
-        recommendationId,
-        interactionType,
-        timestamp: new Date().toISOString()
-      }),
+    mutationFn: ({ recommendationId, interactionType }: { recommendationId: number, interactionType: 'click' | 'play' }) => {
+      const endpoint = interactionType === 'click'
+        ? `/Recommendations/${recommendationId}/click`
+        : `/Recommendations/${recommendationId}/play`
+      return apiService.post(endpoint)
+    },
     onSuccess: () => {
       queryClient.invalidateQueries({ queryKey: ['recommendations'] })
       queryClient.invalidateQueries({ queryKey: ['recommendation-stats'] })

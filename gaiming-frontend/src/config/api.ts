@@ -52,19 +52,22 @@ export const API_ENDPOINTS = {
   
   // Players
   PLAYERS: {
-    BASE: '/players',
-    BY_ID: (id: number) => `/players/${id}`,
+    BASE: '/PlayerAnalytics',
+    BY_ID: (id: number) => `/PlayerAnalytics/${id}`,
     SEARCH: '/players/search',
-    ANALYTICS: (id: number) => `/players/${id}/analytics`,
+    ANALYTICS: (id: number) => `/PlayerAnalytics/${id}/dashboard`,
+    BEHAVIOR: (id: number) => `/PlayerAnalytics/${id}/behavior`,
+    OVERVIEW: '/PlayerAnalytics/overview',
   },
   
   // Recommendations
   RECOMMENDATIONS: {
-    BASE: '/recommendations',
-    BY_PLAYER: (playerId: number) => `/recommendations/player/${playerId}`,
-    ANALYTICS: '/recommendations/analytics',
-    GENERATE: '/recommendations/generate',
-    INTERACTION: '/recommendations/interaction',
+    BASE: '/Recommendations',
+    BY_PLAYER: (playerId: number) => `/Recommendations/player/${playerId}`,
+    ANALYTICS: '/Recommendations/analytics',
+    GENERATE: '/Recommendations/generate',
+    INTERACTION: '/Recommendations/interaction',
+    PERFORMANCE: '/Recommendations/performance',
   },
   
   // Analytics
@@ -85,11 +88,11 @@ export const API_ENDPOINTS = {
   
   // ML Models
   MODELS: {
-    BASE: '/models',
-    BY_ID: (id: number) => `/models/${id}`,
-    PERFORMANCE: (id: number) => `/models/${id}/performance`,
-    DEPLOY: (id: number) => `/models/${id}/deploy`,
-    RETIRE: (id: number) => `/models/${id}/retire`,
+    BASE: '/MLModels',
+    BY_ID: (id: number) => `/MLModels/${id}`,
+    PERFORMANCE: (id: number) => `/MLModels/${id}/performance`,
+    DEPLOY: (id: number) => `/MLModels/${id}/deploy`,
+    RETIRE: (id: number) => `/MLModels/${id}/retire`,
   },
   
   // Admin

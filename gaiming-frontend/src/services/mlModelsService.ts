@@ -237,7 +237,7 @@ class MLModelsService {
 
   async getModels(request: ModelRequest = {}): Promise<PaginatedResponse<MLModel>> {
     const params = new URLSearchParams();
-    
+
     if (request.page) params.append('page', request.page.toString());
     if (request.pageSize) params.append('pageSize', request.pageSize.toString());
     if (request.search) params.append('search', request.search);
@@ -248,15 +248,95 @@ class MLModelsService {
     if (request.sortBy) params.append('sortBy', request.sortBy);
     if (request.sortDirection) params.append('sortDirection', request.sortDirection);
 
-    const response = await api.get<ApiResponse<PaginatedResponse<MLModel>>>(
-      `${this.baseUrl}?${params.toString()}`
-    );
-    return response.data.data;
+    try {
+      // Use direct fetch to bypass axios wrapper issues
+      const url = `http://localhost:65073/api${this.baseUrl}?${params.toString()}`;
+      console.log('Fetching from URL:', url);
+
+      const response = await fetch(url, {
+        method: 'GET',
+        headers: {
+          'Accept': 'application/json',
+          'Content-Type': 'application/json'
+        }
+      });
+
+      if (!response.ok) {
+        throw new Error(`HTTP error! status: ${response.status}`);
+      }
+
+      const data = await response.json();
+      console.log('Raw API response:', data);
+
+      // Handle the expected API response format
+      if (data && data.success && data.data) {
+        const responseData = data.data;
+        if (responseData.items && Array.isArray(responseData.items)) {
+          // Proper paginated response
+          return {
+            items: responseData.items,
+            totalCount: responseData.totalCount,
+            page: responseData.page,
+            pageSize: responseData.pageSize,
+            totalPages: responseData.totalPages || Math.ceil(responseData.totalCount / responseData.pageSize),
+            hasNextPage: responseData.hasNextPage || false,
+            hasPreviousPage: responseData.hasPreviousPage || false
+          };
+        }
+      }
+
+      // Fallback for unexpected response format
+      console.warn('Unexpected API response format:', data);
+      return {
+        items: [],
+        totalCount: 0,
+        page: 1,
+        pageSize: request.pageSize || 20,
+        totalPages: 0,
+        hasNextPage: false,
+        hasPreviousPage: false
+      };
+    } catch (error) {
+      console.error('Error fetching models:', error);
+      throw error;
+    }
   }
 
   async getModel(id: number): Promise<MLModel> {
-    const response = await api.get<ApiResponse<MLModel>>(`${this.baseUrl}/${id}`);
-    return response.data.data;
+    try {
+      const url = `http://localhost:65073/api${this.baseUrl}/${id}`;
+      console.log('Fetching model from URL:', url);
+
+      const response = await fetch(url, {
+        method: 'GET',
+        headers: {
+          'Accept': 'application/json',
+          'Content-Type': 'application/json'
+        }
+      });
+
+      if (!response.ok) {
+        throw new Error(`HTTP error! status: ${response.status}`);
+      }
+
+      const data = await response.json();
+      console.log('Raw model API response:', data);
+
+      // Handle the expected API response format
+      if (data && data.success && data.data) {
+        return data.data;
+      }
+
+      // If it's a direct model object (not wrapped)
+      if (data && data.id) {
+        return data;
+      }
+
+      throw new Error('Invalid response format');
+    } catch (error) {
+      console.error('Error fetching model:', error);
+      throw error;
+    }
   }
 
   async createModel(model: Partial<MLModel>): Promise<MLModel> {
@@ -274,10 +354,32 @@ class MLModelsService {
   }
 
   async getModelPerformance(id: number): Promise<ModelPerformanceMetrics> {
-    const response = await api.get<ApiResponse<ModelPerformanceMetrics>>(
-      `${this.baseUrl}/${id}/performance`
-    );
-    return response.data.data;
+    try {
+      const url = `http://localhost:65073/api${this.baseUrl}/${id}/performance`;
+      const response = await fetch(url, {
+        method: 'GET',
+        headers: {
+          'Accept': 'application/json',
+          'Content-Type': 'application/json'
+        }
+      });
+
+      if (!response.ok) {
+        throw new Error(`HTTP error! status: ${response.status}`);
+      }
+
+      const data = await response.json();
+
+      // Handle the expected API response format
+      if (data && data.success && data.data) {
+        return data.data;
+      }
+
+      throw new Error('Invalid response format');
+    } catch (error) {
+      console.error('Error fetching model performance:', error);
+      throw error;
+    }
   }
 
   async trainModel(request: TrainingRequest): Promise<ModelTrainingJob> {
