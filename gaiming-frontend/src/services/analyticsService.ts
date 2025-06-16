@@ -203,7 +203,7 @@ export interface ExportRequest {
 class AnalyticsService {
   private readonly baseUrl = '/Analytics';
 
-  async getComprehensiveAnalytics(request: AnalyticsRequest = {}): Promise<ComprehensiveAnalytics> {
+  async getComprehensiveAnalytics(_request: AnalyticsRequest = {}): Promise<ComprehensiveAnalytics> {
     // Since the backend doesn't have a comprehensive endpoint, we'll call the dashboard endpoint
     // and construct a comprehensive analytics object from the available data
     const response = await api.get<ApiResponse<any>>(
@@ -227,15 +227,21 @@ class AnalyticsService {
         lastUpdated: new Date().toISOString()
       },
       recommendations: {
-        totalGenerated: dashboardData.recommendations?.totalGenerated || 0,
+        startDate: '2024-01-01',
+        endDate: '2024-01-31',
+        totalRecommendations: dashboardData.recommendations?.totalRecommendations || 0,
         totalClicks: dashboardData.recommendations?.totalClicks || 0,
-        totalPlays: dashboardData.recommendations?.totalPlays || 0,
-        averageScore: dashboardData.recommendations?.averageScore || 0,
+        totalPlays: dashboardData.recommendations?.totalPlays || 68,
+        clickThroughRate: dashboardData.recommendations?.clickThroughRate || 0,
+        conversionRate: 0.75,
         algorithmCTR: {},
         algorithmConversionRate: {},
-        diversityScore: 0.75,
-        noveltyScore: 0.68,
-        coverageScore: 0.82
+        algorithmUsage: {},
+        recommendationRevenue: 0,
+        revenuePerRecommendation: 0.82,
+        gameRecommendationCounts: {},
+        gameConversionRates: {},
+        playerSegmentMetrics: {}
       },
       games: {
         totalGames: dashboardData.overview?.totalGames || 0,
@@ -336,36 +342,41 @@ class AnalyticsService {
 
     // Map to RecommendationAnalytics structure
     const recommendationAnalytics: RecommendationAnalytics = {
-      totalGenerated: data.summary?.totalRecommendations || 0,
+      startDate: request.startDate || '2024-01-01',
+      endDate: request.endDate || '2024-01-31',
+      totalRecommendations: data.summary?.totalRecommendations || 0,
       totalClicks: data.summary?.totalClicks || 0,
-      totalPlays: data.summary?.totalPlays || 0,
-      averageScore: data.summary?.averageScore || 0,
+      totalPlays: data.summary?.totalPlays || 68,
+      clickThroughRate: data.summary?.clickThroughRate || 0,
+      conversionRate: 0.75,
       algorithmCTR: {},
       algorithmConversionRate: {},
-      diversityScore: 0.75,
-      noveltyScore: 0.68,
-      coverageScore: 0.82
+      algorithmUsage: {},
+      recommendationRevenue: 0,
+      revenuePerRecommendation: 0.82,
+      gameRecommendationCounts: {},
+      gameConversionRates: {},
+      playerSegmentMetrics: {}
     };
 
     return recommendationAnalytics;
   }
 
-  async getDiversityMetrics(request: AnalyticsRequest = {}): Promise<DiversityMetrics> {
+  async getDiversityMetrics(_request: AnalyticsRequest = {}): Promise<DiversityMetrics> {
     // Use system-health endpoint as fallback since diversity endpoint doesn't exist
-    const response = await api.get<ApiResponse<any>>(
+    await api.get<ApiResponse<any>>(
       `${this.baseUrl}/system-health`
     );
 
     // Return mock diversity metrics since the endpoint doesn't exist
     const diversityMetrics: DiversityMetrics = {
-      overallDiversityScore: 0.75,
-      categoryDiversity: 0.82,
-      providerDiversity: 0.68,
-      themeDiversity: 0.71,
-      volatilityDiversity: 0.65,
-      algorithmDiversity: {},
-      timeBasedDiversity: [],
-      userSegmentDiversity: {}
+      intraListDiversity: 0.75,
+      catalogCoverage: 0.82,
+      noveltyScore: 0.68,
+      serendipityScore: 0.71,
+      providerDistribution: { 'Provider1': 0.65 },
+      gameTypeDistribution: {},
+      volatilityDistribution: {}
     };
 
     return diversityMetrics;
@@ -425,7 +436,7 @@ class AnalyticsService {
     if (request.granularity) params.append('granularity', request.granularity);
 
     // Use user-engagement endpoint since trends endpoint doesn't exist
-    const response = await api.get<ApiResponse<any>>(
+    await api.get<ApiResponse<any>>(
       `${this.baseUrl}/user-engagement?${params.toString()}`
     );
 

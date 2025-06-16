@@ -7,7 +7,7 @@ import {
   Play,
   Pause,
   Download,
-  Upload,
+
   BarChart3,
   Clock,
   CheckCircle,
@@ -24,11 +24,18 @@ import {
   Monitor,
   TrendingUp
 } from 'lucide-react'
-import { mlModelsService, type MLModel, type ModelPerformanceMetrics } from '@/services/mlModelsService'
+import { mlModelsService, type MLModel } from '@/services/mlModelsService'
 import { Card, CardHeader, CardTitle, CardDescription, CardContent } from '@/components/ui/Card'
 import Button from '@/components/ui/Button'
 import Badge from '@/components/ui/Badge'
 import LoadingSpinner from '@/components/ui/LoadingSpinner'
+
+interface ModelPerformanceMetrics {
+  precision: number
+  recall: number
+  f1Score: number
+  accuracy: number
+}
 
 const ModelDetail: React.FC = () => {
   const { modelId } = useParams<{ modelId: string }>()
@@ -67,7 +74,14 @@ const ModelDetail: React.FC = () => {
     try {
       setPerformanceLoading(true)
       const performanceData = await mlModelsService.getModelPerformance(Number(modelId))
-      setPerformance(performanceData)
+      // Map the external type to our local type
+      const mappedData: ModelPerformanceMetrics = {
+        precision: performanceData.precision,
+        recall: performanceData.recall,
+        f1Score: performanceData.f1Score,
+        accuracy: performanceData.auc || 0 // Use auc as accuracy fallback
+      }
+      setPerformance(mappedData)
     } catch (err) {
       console.error('Error fetching model performance:', err)
     } finally {

@@ -20,7 +20,7 @@ import { mlModelsService, type MLModel, type ModelRequest } from '../services/ml
 import type { ModelPerformanceMetrics } from '../types';
 
 import BarChart from '../components/charts/BarChart';
-import { Card, CardHeader, CardTitle, CardDescription, CardContent } from '@/components/ui/Card';
+import { Card } from '@/components/ui/Card';
 import Button from '@/components/ui/Button';
 import Badge from '@/components/ui/Badge';
 import LoadingSpinner from '@/components/ui/LoadingSpinner';
@@ -33,7 +33,7 @@ const ModelsContent: React.FC = () => {
   const [models, setModels] = useState<MLModel[]>([]);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState<string | null>(null);
-  const [selectedModel, setSelectedModel] = useState<MLModel | null>(null);
+  const [selectedModel] = useState<MLModel | null>(null);
   const [modelPerformance, setModelPerformance] = useState<Record<number, ModelPerformanceMetrics>>({});
 
   // Suppress unused variable warning for future use

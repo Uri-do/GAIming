@@ -1,9 +1,8 @@
-import React, { useState } from 'react'
+import { useState } from 'react'
 import { useQuery } from '@tanstack/react-query'
-import { 
-  Key, 
-  Search, 
-  Filter,
+import {
+  Key,
+  Search,
   Shield,
   Users,
   Settings,
@@ -41,7 +40,7 @@ const actionColors: Record<string, string> = {
   Admin: 'bg-purple-100 text-purple-800',
 }
 
-export function PermissionManagement() {
+function PermissionManagement() {
   const [search, setSearch] = useState('')
   const [resourceFilter, setResourceFilter] = useState<string>('')
   const [actionFilter, setActionFilter] = useState<string>('')
@@ -281,3 +280,5 @@ export function PermissionManagement() {
     </div>
   )
 }
+
+export default PermissionManagement

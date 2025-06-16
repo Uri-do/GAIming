@@ -1,5 +1,5 @@
 import React from 'react'
-import { Sun, Moon, Monitor, Palette, Type, CornerRadius } from 'lucide-react'
+import { Sun, Moon, Monitor, Palette, Type } from 'lucide-react'
 import { useThemeStore } from '@/stores/themeStore'
 import { ThemeMode } from '@/types'
 import { cn } from '@/lib/utils'
@@ -192,7 +192,7 @@ const ThemeSettings: React.FC = () => {
       {/* Border Radius */}
       <div className="bg-white dark:bg-gray-800 rounded-lg border border-gray-200 dark:border-gray-700 p-6">
         <div className="flex items-center space-x-3 mb-4">
-          <CornerRadius className="w-5 h-5 text-gray-500 dark:text-gray-400" />
+          <div className="w-5 h-5 border border-gray-500 dark:border-gray-400 rounded" />
           <h2 className="text-lg font-semibold text-gray-900 dark:text-gray-100">Border Radius</h2>
         </div>
         

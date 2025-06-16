@@ -18,7 +18,7 @@ import { playerAnalyticsService, type PlayerAnalytics, type PlayerAnalyticsReque
 
 import BarChart from '../components/charts/BarChart';
 import PieChart from '../components/charts/PieChart';
-import { Card, CardHeader, CardTitle, CardDescription, CardContent } from '@/components/ui/Card';
+import { Card } from '@/components/ui/Card';
 import Button from '@/components/ui/Button';
 import Badge from '@/components/ui/Badge';
 import LoadingSpinner from '@/components/ui/LoadingSpinner';
@@ -33,8 +33,7 @@ const PlayersContent: React.FC = () => {
   const [overview, setOverview] = useState<PlayersOverview | null>(null);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState<string | null>(null);
-  const [selectedPlayer, setSelectedPlayer] = useState<PlayerAnalytics | null>(null);
-  const [showPlayerModal, setShowPlayerModal] = useState(false);
+  const [selectedPlayer] = useState<PlayerAnalytics | null>(null);
   const [showExportProgress, setShowExportProgress] = useState(false);
 
   // Export hook with progress tracking
@@ -55,7 +54,7 @@ const PlayersContent: React.FC = () => {
   });
 
   // Suppress unused variable warnings for future use
-  console.log('Selected player:', selectedPlayer, 'Show modal:', showPlayerModal);
+  console.log('Selected player:', selectedPlayer);
 
   // Filters and pagination
   const [filters, setFilters] = useState<PlayerAnalyticsRequest>({

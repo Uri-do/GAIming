@@ -36,15 +36,16 @@ const Games: React.FC = () => {
       console.log('Games response:', response)
 
       // Handle nested response structure
-      const data = response.data || response
-      const items = data.items || data.data || []
+      const data = 'data' in response ? response.data : response
+      const typedData = data as any
+      const items = typedData.items || typedData.data || []
 
       setGames(items)
       setPagination({
-        page: data.page || 1,
-        pageSize: data.pageSize || 20,
-        totalCount: data.totalCount || 0,
-        totalPages: data.totalPages || 0
+        page: typedData.page || 1,
+        pageSize: typedData.pageSize || 20,
+        totalCount: typedData.totalCount || 0,
+        totalPages: typedData.totalPages || 0
       })
     } catch (err) {
       console.error('Error fetching games:', err)

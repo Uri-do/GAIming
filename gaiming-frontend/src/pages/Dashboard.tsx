@@ -72,16 +72,36 @@ const MetricCard: React.FC<MetricCardProps> = ({
   )
 }
 
+interface DashboardOverview {
+  totalUsers: number
+  activeGames: number
+  clickThroughRate: number
+  totalRecommendations: number
+}
+
+interface DashboardData {
+  overview: DashboardOverview
+}
+
+interface AlgorithmPerformance {
+  algorithm: string
+  ctr: number
+}
+
+interface RecommendationData {
+  algorithmPerformance: AlgorithmPerformance[]
+}
+
 const Dashboard: React.FC = () => {
   // Fetch dashboard metrics
-  const { data: dashboardData, isLoading: dashboardLoading } = useQuery({
+  const { data: dashboardData, isLoading: dashboardLoading } = useQuery<DashboardData>({
     queryKey: ['dashboard-metrics'],
     queryFn: () => apiService.get(API_ENDPOINTS.ANALYTICS.DASHBOARD),
     refetchInterval: 30000, // Refresh every 30 seconds
   })
 
   // Fetch recommendation analytics
-  const { data: recommendationData, isLoading: recommendationLoading } = useQuery({
+  const { data: recommendationData, isLoading: recommendationLoading } = useQuery<RecommendationData>({
     queryKey: ['recommendation-analytics'],
     queryFn: () => apiService.get(API_ENDPOINTS.RECOMMENDATIONS.ANALYTICS),
   })

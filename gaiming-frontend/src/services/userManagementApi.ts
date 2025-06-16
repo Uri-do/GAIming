@@ -220,7 +220,7 @@ export const userManagementApi = {
   // Export/Import
   async exportUsers(format: 'csv' | 'excel' = 'csv'): Promise<Blob> {
     const response = await apiService.download(`/Users/export?format=${format}`)
-    return new Blob([response])
+    return response as unknown as Blob
   },
 
   async importUsers(file: File): Promise<{ success: number; errors: string[] }> {

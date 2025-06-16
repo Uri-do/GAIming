@@ -3,7 +3,6 @@ import { useParams, useNavigate } from 'react-router-dom'
 import {
   ArrowLeft,
   User,
-  Mail,
   MapPin,
   Calendar,
   Star,
@@ -14,11 +13,8 @@ import {
   Clock,
   Target,
   BarChart3,
-  Users,
   Gamepad2,
-  AlertTriangle,
   Award,
-  Eye,
   Settings
 } from 'lucide-react'
 import { playerAnalyticsService, type PlayerAnalytics } from '@/services/playerAnalyticsService'

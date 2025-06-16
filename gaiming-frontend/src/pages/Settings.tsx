@@ -14,7 +14,6 @@ import {
   Shield,
   Zap,
   Bell,
-  Database,
   Brain,
   BarChart3
 } from 'lucide-react'
@@ -209,7 +208,7 @@ const Settings: React.FC = () => {
                       />
                     </div>
                     <div className="flex items-center gap-4">
-                      <Badge variant={settings?.general?.maintenanceMode ? "destructive" : "default"}>
+                      <Badge variant={settings?.general?.maintenanceMode ? "error" : "default"}>
                         {settings?.general?.maintenanceMode ? "Maintenance Mode ON" : "System Online"}
                       </Badge>
                       <Button

@@ -1,23 +1,19 @@
-import React, { useState } from 'react'
+import { useState } from 'react'
 import { useQuery } from '@tanstack/react-query'
-import { 
-  Activity, 
-  Search, 
-  Filter,
-  Calendar,
+import {
+  Activity,
+  Search,
   User,
   Clock,
   MapPin,
   Monitor,
   Smartphone,
-  Globe,
   AlertTriangle,
   CheckCircle,
   XCircle
 } from 'lucide-react'
 import { Input } from '@/components/ui/input'
-import { Badge } from '@/components/ui/badge'
-import { Button } from '@/components/ui/button'
+import { Badge } from '@/components/ui/Badge'
 import {
   Table,
   TableBody,
@@ -26,15 +22,9 @@ import {
   TableHeader,
   TableRow,
 } from '@/components/ui/table'
-import {
-  Select,
-  SelectContent,
-  SelectItem,
-  SelectTrigger,
-  SelectValue,
-} from '@/components/ui/select'
-import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/ui/card'
-import { userManagementApi } from '@/services/userManagementApi'
+
+import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/ui/Card'
+
 
 interface UserActivity {
   id: string
@@ -66,9 +56,9 @@ const getDeviceIcon = (userAgent: string) => {
   return Monitor
 }
 
-export function UserActivity() {
+function UserActivity() {
   const [search, setSearch] = useState('')
-  const [userFilter, setUserFilter] = useState<string>('')
+  const [userFilter] = useState<string>('')
   const [actionFilter, setActionFilter] = useState<string>('')
   const [dateRange, setDateRange] = useState<string>('7')
 
@@ -231,30 +221,28 @@ export function UserActivity() {
               </div>
             </div>
             <div className="flex gap-2">
-              <Select value={dateRange} onValueChange={setDateRange}>
-                <SelectTrigger className="w-32">
-                  <SelectValue />
-                </SelectTrigger>
-                <SelectContent>
-                  <SelectItem value="1">Last 24h</SelectItem>
-                  <SelectItem value="7">Last 7 days</SelectItem>
-                  <SelectItem value="30">Last 30 days</SelectItem>
-                  <SelectItem value="90">Last 90 days</SelectItem>
-                </SelectContent>
-              </Select>
-              <Select value={actionFilter} onValueChange={setActionFilter}>
-                <SelectTrigger className="w-32">
-                  <SelectValue placeholder="All Actions" />
-                </SelectTrigger>
-                <SelectContent>
-                  <SelectItem value="">All Actions</SelectItem>
-                  <SelectItem value="login">Login</SelectItem>
-                  <SelectItem value="logout">Logout</SelectItem>
-                  <SelectItem value="create">Create</SelectItem>
-                  <SelectItem value="update">Update</SelectItem>
-                  <SelectItem value="delete">Delete</SelectItem>
-                </SelectContent>
-              </Select>
+              <select
+                value={dateRange}
+                onChange={(e) => setDateRange(e.target.value)}
+                className="px-3 py-2 border border-gray-300 rounded-md text-sm w-32"
+              >
+                <option value="1">Last 24h</option>
+                <option value="7">Last 7 days</option>
+                <option value="30">Last 30 days</option>
+                <option value="90">Last 90 days</option>
+              </select>
+              <select
+                value={actionFilter}
+                onChange={(e) => setActionFilter(e.target.value)}
+                className="px-3 py-2 border border-gray-300 rounded-md text-sm w-32"
+              >
+                <option value="">All Actions</option>
+                <option value="login">Login</option>
+                <option value="logout">Logout</option>
+                <option value="create">Create</option>
+                <option value="update">Update</option>
+                <option value="delete">Delete</option>
+              </select>
             </div>
           </div>
         </CardContent>
@@ -331,7 +319,7 @@ export function UserActivity() {
                         </div>
                       </TableCell>
                       <TableCell>
-                        <Badge variant={activity.success ? "default" : "destructive"}>
+                        <Badge variant={activity.success ? "default" : "error"}>
                           {activity.success ? "Success" : "Failed"}
                         </Badge>
                       </TableCell>
@@ -351,3 +339,5 @@ export function UserActivity() {
     </div>
   )
 }
+
+export default UserActivity

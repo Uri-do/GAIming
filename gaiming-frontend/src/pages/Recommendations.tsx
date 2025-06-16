@@ -19,7 +19,7 @@ const Recommendations: React.FC = () => {
       console.log('Recommendations response:', response)
 
       // Handle nested response structure
-      const data = response.data || response
+      const data = Array.isArray(response) ? response : (response as any)?.data || []
       const recommendations = Array.isArray(data) ? data : []
 
       setRecommendations(recommendations)

@@ -1,14 +1,13 @@
-import React, { useState } from 'react'
+import { useState } from 'react'
 import { useQuery, useMutation, useQueryClient } from '@tanstack/react-query'
-import { 
-  Shield, 
-  Plus, 
-  Search, 
-  Edit, 
-  Trash2, 
-  Users, 
+import {
+  Shield,
+  Plus,
+  Search,
+  Edit,
+  Trash2,
+  Users,
   Key,
-  CheckCircle,
   XCircle,
   MoreHorizontal,
   Settings
@@ -36,7 +35,7 @@ import { userManagementApi, Role } from '@/services/userManagementApi'
 import { CreateRoleDialog } from '@/components/admin/CreateRoleDialog'
 import { EditRoleDialog } from '@/components/admin/EditRoleDialog'
 
-export function RoleManagement() {
+function RoleManagement() {
   const [search, setSearch] = useState('')
   const [selectedRole, setSelectedRole] = useState<Role | null>(null)
   const [isCreateDialogOpen, setIsCreateDialogOpen] = useState(false)
@@ -73,8 +72,9 @@ export function RoleManagement() {
     setIsEditDialogOpen(true)
   }
 
-  const formatDate = (dateString: string) => {
-    return new Date(dateString).toLocaleDateString()
+  const formatDate = (date: string | Date) => {
+    const dateObj = typeof date === 'string' ? new Date(date) : date
+    return dateObj.toLocaleDateString()
   }
 
   // Filter roles based on search
@@ -290,3 +290,5 @@ export function RoleManagement() {
     </div>
   )
 }
+
+export default RoleManagement

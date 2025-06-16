@@ -1,15 +1,13 @@
-import React, { useState } from 'react'
+import { useState } from 'react'
 import { useQuery, useMutation, useQueryClient } from '@tanstack/react-query'
-import { 
-  Users, 
-  Plus, 
-  Search, 
-  Filter, 
-  Edit, 
-  Trash2, 
-  Shield, 
-  Mail, 
-  Calendar,
+import {
+  Users,
+  Plus,
+  Search,
+  Edit,
+  Trash2,
+  Shield,
+  Mail,
   CheckCircle,
   XCircle,
   MoreHorizontal
@@ -31,14 +29,7 @@ import {
   DropdownMenuItem,
   DropdownMenuTrigger,
 } from '@/components/ui/dropdown-menu'
-import {
-  Dialog,
-  DialogContent,
-  DialogDescription,
-  DialogHeader,
-  DialogTitle,
-  DialogTrigger,
-} from '@/components/ui/dialog'
+
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/ui/Card'
 import { toast } from 'sonner'
 import { userManagementApi } from '@/services/userManagementApi'
@@ -75,7 +66,7 @@ interface PagedResult<T> {
   hasPreviousPage: boolean
 }
 
-export function UserManagement() {
+function UserManagement() {
   const [page, setPage] = useState(1)
   const [pageSize] = useState(20)
   const [search, setSearch] = useState('')
@@ -385,3 +376,5 @@ export function UserManagement() {
     </div>
   )
 }
+
+export default UserManagement

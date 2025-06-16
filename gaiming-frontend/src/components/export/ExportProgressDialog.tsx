@@ -2,7 +2,7 @@ import React, { useEffect, useState } from 'react';
 import { X, Download, AlertCircle, CheckCircle, Clock, FileText } from 'lucide-react';
 import { ExportProgress } from '../../services/exportService';
 import Button from '@/components/ui/Button';
-import { Card, CardHeader, CardTitle, CardContent } from '@/components/ui/Card';
+import { Card } from '@/components/ui/Card';
 
 interface ExportProgressDialogProps {
   isOpen: boolean;

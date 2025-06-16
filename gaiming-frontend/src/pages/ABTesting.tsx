@@ -83,7 +83,7 @@ const ABTesting: React.FC = () => {
     switch (status) {
       case 'running': return 'default'
       case 'completed': return 'secondary'
-      case 'paused': return 'destructive'
+      case 'paused': return 'error'
       case 'draft': return 'outline'
       default: return 'secondary'
     }

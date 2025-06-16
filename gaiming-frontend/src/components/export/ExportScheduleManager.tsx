@@ -20,7 +20,7 @@ import {
   type ScheduleFrequency,
   type ExportType,
 } from '../../services/exportSchedulingService';
-import { Card, CardHeader, CardTitle, CardContent } from '@/components/ui/Card';
+import { Card } from '@/components/ui/Card';
 import Button from '@/components/ui/Button';
 import Badge from '@/components/ui/Badge';
 import LoadingSpinner from '@/components/ui/LoadingSpinner';
