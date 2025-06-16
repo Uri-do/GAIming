@@ -47,10 +47,24 @@ const navigationItems: NavigationItem[] = [
     icon: Users,
   },
   {
+    id: 'player-analytics',
+    label: 'Player Analytics',
+    path: '/players/analytics',
+    icon: BarChart3,
+    badge: 'Pro',
+  },
+  {
     id: 'recommendations',
     label: 'Recommendations',
     path: '/recommendations',
     icon: Target,
+  },
+  {
+    id: 'recommendations-dashboard',
+    label: 'Rec Dashboard',
+    path: '/recommendations/dashboard',
+    icon: BarChart3,
+    badge: 'Live',
   },
   {
     id: 'analytics',
@@ -64,6 +78,13 @@ const navigationItems: NavigationItem[] = [
     path: '/ab-testing',
     icon: FlaskConical,
     badge: 'Beta',
+  },
+  {
+    id: 'ab-testing-management',
+    label: 'AB Management',
+    path: '/ab-testing/management',
+    icon: Settings,
+    badge: 'Pro',
   },
   {
     id: 'models',

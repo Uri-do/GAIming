@@ -12,6 +12,9 @@ const GameDetail = React.lazy(() => import('@/pages/GameDetail'))
 const Players = React.lazy(() => import('@/pages/Players'))
 const PlayerDetail = React.lazy(() => import('@/pages/PlayerDetail'))
 const Recommendations = React.lazy(() => import('@/pages/Recommendations'))
+const RecommendationsDashboard = React.lazy(() => import('@/pages/RecommendationsDashboard'))
+const PlayerAnalytics = React.lazy(() => import('@/pages/PlayerAnalytics'))
+const ABTestingManagement = React.lazy(() => import('@/pages/ABTestingManagement'))
 const Analytics = React.lazy(() => import('@/pages/Analytics'))
 const ABTesting = React.lazy(() => import('@/pages/ABTesting'))
 const Models = React.lazy(() => import('@/pages/Models'))
@@ -108,15 +111,18 @@ function App() {
             {/* Players */}
             <Route path="players" element={<Players />} />
             <Route path="players/:playerId" element={<PlayerDetail />} />
+            <Route path="players/analytics" element={<PlayerAnalytics />} />
 
             {/* Recommendations */}
             <Route path="recommendations" element={<Recommendations />} />
+            <Route path="recommendations/dashboard" element={<RecommendationsDashboard />} />
 
             {/* Analytics */}
             <Route path="analytics" element={<Analytics />} />
 
             {/* A/B Testing */}
             <Route path="ab-testing" element={<ABTesting />} />
+            <Route path="ab-testing/management" element={<ABTestingManagement />} />
 
             {/* Models */}
             <Route path="models" element={<Models />} />

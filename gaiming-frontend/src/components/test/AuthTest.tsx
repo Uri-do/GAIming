@@ -1,9 +1,9 @@
 import { useState } from 'react'
 import { useAuthStore } from '@/stores/authStore'
 import { Button } from '@/components/ui/Button'
-import { Input } from '@/components/ui/Input'
+import { Input } from '@/components/ui/input'
 import { Card } from '@/components/ui/Card'
-import { Alert } from '@/components/ui/Alert'
+
 
 export function AuthTest() {
   const [username, setUsername] = useState('admin')
@@ -80,9 +80,12 @@ export function AuthTest() {
               </div>
             )}
             {error && (
-              <Alert variant="error" title="Authentication Error">
-                {error}
-              </Alert>
+              <div className="p-4 bg-red-50 dark:bg-red-900/20 rounded-md">
+                <h4 className="font-semibold text-red-800 dark:text-red-200 mb-2">
+                  Authentication Error
+                </h4>
+                <p className="text-red-700 dark:text-red-300">{error}</p>
+              </div>
             )}
           </div>
         </div>
@@ -92,19 +95,27 @@ export function AuthTest() {
           <div className="mb-6">
             <h3 className="text-lg font-semibold mb-2">Login Test</h3>
             <div className="space-y-4">
-              <Input
-                label="Username"
-                value={username}
-                onChange={(e) => setUsername(e.target.value)}
-                placeholder="Enter username"
-              />
-              <Input
-                label="Password"
-                type="password"
-                value={password}
-                onChange={(e) => setPassword(e.target.value)}
-                placeholder="Enter password"
-              />
+              <div>
+                <label className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-2">
+                  Username
+                </label>
+                <Input
+                  value={username}
+                  onChange={(e) => setUsername(e.target.value)}
+                  placeholder="Enter username"
+                />
+              </div>
+              <div>
+                <label className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-2">
+                  Password
+                </label>
+                <Input
+                  type="password"
+                  value={password}
+                  onChange={(e) => setPassword(e.target.value)}
+                  placeholder="Enter password"
+                />
+              </div>
               <Button 
                 onClick={handleTestLogin}
                 loading={isLoading}
