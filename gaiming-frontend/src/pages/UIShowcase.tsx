@@ -11,10 +11,10 @@ import {
   Heart,
   Shield
 } from 'lucide-react'
-import { Card, CardHeader, CardTitle, CardDescription, CardContent } from '@/components/UI/Card'
-import Button from '@/components/UI/Button'
-import Badge from '@/components/UI/Badge'
-import LoadingSpinner from '@/components/UI/LoadingSpinner'
+import { Card, CardHeader, CardTitle, CardDescription, CardContent } from '@/components/ui/Card'
+import Button from '@/components/ui/Button'
+import Badge from '@/components/ui/Badge'
+import LoadingSpinner from '@/components/ui/LoadingSpinner'
 
 const UIShowcase: React.FC = () => {
   return (

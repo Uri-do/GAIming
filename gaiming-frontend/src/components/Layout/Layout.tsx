@@ -12,7 +12,7 @@ const Layout: React.FC = () => {
     <div className="min-h-screen bg-gray-50 dark:bg-gray-900">
       {/* Sidebar */}
       <Sidebar />
-      
+
       {/* Main content area */}
       <div
         className={cn(
@@ -22,7 +22,7 @@ const Layout: React.FC = () => {
       >
         {/* Header */}
         <Header />
-        
+
         {/* Page content */}
         <main className="p-6">
           <div className="max-w-7xl mx-auto">

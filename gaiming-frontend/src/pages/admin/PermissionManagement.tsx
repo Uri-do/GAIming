@@ -12,7 +12,7 @@ import {
   FileText
 } from 'lucide-react'
 import { Input } from '@/components/ui/input'
-import { Badge } from '@/components/ui/badge'
+import { Badge } from '@/components/ui/Badge'
 import {
   Table,
   TableBody,
@@ -21,7 +21,7 @@ import {
   TableHeader,
   TableRow,
 } from '@/components/ui/table'
-import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/ui/card'
+import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/ui/Card'
 import { userManagementApi, Permission } from '@/services/userManagementApi'
 
 const resourceIcons: Record<string, React.ComponentType<{ className?: string }>> = {

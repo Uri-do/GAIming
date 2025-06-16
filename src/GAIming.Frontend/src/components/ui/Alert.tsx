@@ -10,11 +10,11 @@ const alertVariants = cva(
   {
     variants: {
       variant: {
-        default: 'bg-white border-gray-200 text-gray-900 dark:bg-gray-800 dark:border-gray-700 dark:text-gray-100',
-        info: 'bg-blue-50 border-blue-200 text-blue-900 dark:bg-blue-950 dark:border-blue-800 dark:text-blue-100',
-        success: 'bg-success-50 border-success-200 text-success-900 dark:bg-success-950 dark:border-success-800 dark:text-success-100',
-        warning: 'bg-warning-50 border-warning-200 text-warning-900 dark:bg-warning-950 dark:border-warning-800 dark:text-warning-100',
-        error: 'bg-error-50 border-error-200 text-error-900 dark:bg-error-950 dark:border-error-800 dark:text-error-100',
+        default: 'bg-white border-gray-200 text-gray-900',
+        info: 'bg-blue-50 border-blue-200 text-blue-900',
+        success: 'bg-success-50 border-success-200 text-success-900',
+        warning: 'bg-warning-50 border-warning-200 text-warning-900',
+        error: 'bg-error-50 border-error-200 text-error-900',
       },
     },
     defaultVariants: {

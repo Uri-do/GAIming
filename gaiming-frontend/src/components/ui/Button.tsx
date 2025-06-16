@@ -53,14 +53,14 @@ const Button = React.forwardRef<HTMLButtonElement, ButtonProps>(
         'before:translate-x-[-100%] hover:before:translate-x-[100%] before:transition-transform before:duration-700'
       ),
       ghost: cn(
-        'text-gray-700 dark:text-gray-300',
-        'hover:bg-gray-100 dark:hover:bg-gray-800',
+        'text-gray-700',
+        'hover:bg-gray-100',
         'focus-visible:ring-gray-500'
       ),
       outline: cn(
-        'border border-gray-300 dark:border-gray-600 bg-transparent',
-        'text-gray-700 dark:text-gray-300',
-        'hover:bg-gray-50 dark:hover:bg-gray-800',
+        'border border-gray-300 bg-transparent',
+        'text-gray-700',
+        'hover:bg-gray-50',
         'focus-visible:ring-gray-500'
       ),
       destructive: cn(

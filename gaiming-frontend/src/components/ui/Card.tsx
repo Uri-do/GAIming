@@ -26,7 +26,7 @@ const Card = React.forwardRef<HTMLDivElement, CardProps>(
 
     const variants = {
       default: cn(
-        'bg-white dark:bg-gray-800 border border-gray-200 dark:border-gray-700 shadow-sm'
+        'bg-white border border-gray-200 shadow-sm'
       ),
       gaming: cn(
         'bg-gradient-to-br from-gray-900 via-gray-800 to-gray-900',
@@ -35,16 +35,16 @@ const Card = React.forwardRef<HTMLDivElement, CardProps>(
         'before:absolute before:inset-0 before:bg-gradient-to-br before:from-primary-500/5 before:to-transparent'
       ),
       glass: cn(
-        'backdrop-blur-md bg-white/10 dark:bg-gray-900/10',
-        'border border-white/20 dark:border-gray-700/20',
+        'backdrop-blur-md bg-white/10',
+        'border border-white/20',
         'shadow-xl'
       ),
       elevated: cn(
-        'bg-white dark:bg-gray-800 shadow-xl shadow-gray-900/10',
-        'border border-gray-100 dark:border-gray-700'
+        'bg-white shadow-xl shadow-gray-900/10',
+        'border border-gray-100'
       ),
       bordered: cn(
-        'bg-white dark:bg-gray-800 border-2 border-primary-200 dark:border-primary-800'
+        'bg-white border-2 border-primary-200'
       ),
     }
 

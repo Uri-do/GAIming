@@ -203,7 +203,7 @@ class PlayerAnalyticsService {
 
   async getPlayers(request: PlayerAnalyticsRequest = {}): Promise<PaginatedResponse<PlayerAnalytics>> {
     const params = new URLSearchParams();
-    
+
     if (request.page) params.append('page', request.page.toString());
     if (request.pageSize) params.append('pageSize', request.pageSize.toString());
     if (request.search) params.append('search', request.search);
@@ -221,6 +221,16 @@ class PlayerAnalyticsService {
       `${this.baseUrl}?${params.toString()}`
     );
     return response.data.data;
+  }
+
+  async getPlayer(playerId: number): Promise<PlayerAnalytics> {
+    // For now, get from the players list - in a real implementation this would be a dedicated endpoint
+    const players = await this.getPlayers({ pageSize: 100 });
+    const player = players.items.find(p => p.playerId === playerId);
+    if (!player) {
+      throw new Error(`Player with ID ${playerId} not found`);
+    }
+    return player;
   }
 
   async getPlayerDashboard(playerId: number, days: number = 30): Promise<PlayerDashboard> {

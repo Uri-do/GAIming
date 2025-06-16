@@ -16,10 +16,9 @@ import { analyticsService, type ComprehensiveAnalytics, type AnalyticsRequest } 
 import LineChart from '../components/charts/LineChart';
 import BarChart from '../components/charts/BarChart';
 import PieChart from '../components/charts/PieChart';
-import Card from '../components/UI/Card';
-import Button from '../components/UI/Button';
-
-import LoadingSpinner from '../components/UI/LoadingSpinner';
+import { Card, CardHeader, CardTitle, CardDescription, CardContent } from '@/components/ui/Card';
+import Button from '@/components/ui/Button';
+import LoadingSpinner from '@/components/ui/LoadingSpinner';
 import AuthGuard, { usePermissions } from '../components/auth/AuthGuard';
 import { exportService } from '../services/exportService';
 

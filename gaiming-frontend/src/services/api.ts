@@ -1,19 +1,21 @@
-import axios, { AxiosInstance, AxiosRequestConfig, AxiosResponse } from 'axios';
-import { ApiResponse, PaginatedResponse } from '@/types';
+import axios, { AxiosInstance, AxiosRequestConfig, AxiosResponse } from 'axios'
+import { ApiResponse, PaginatedResponse } from '@/types'
+import { API_CONFIG, ENV_INFO } from '@/config'
 
 // Create axios instance with default configuration
 const createApiInstance = (): AxiosInstance => {
-  const baseURL = import.meta.env.VITE_API_BASE_URL || 'http://localhost:65073/api';
-
-  console.log('API Base URL:', baseURL);
-  console.log('Environment variables:', import.meta.env);
+  if (ENV_INFO.isDevelopment) {
+    console.log('API Configuration:', {
+      baseURL: API_CONFIG.BASE_URL,
+      timeout: API_CONFIG.TIMEOUT,
+      environment: ENV_INFO.mode,
+    })
+  }
 
   const instance = axios.create({
-    baseURL,
-    timeout: 30000,
-    headers: {
-      'Content-Type': 'application/json',
-    },
+    baseURL: API_CONFIG.BASE_URL,
+    timeout: API_CONFIG.TIMEOUT,
+    headers: API_CONFIG.DEFAULT_HEADERS,
   });
 
   // Request interceptor for auth token
@@ -51,11 +53,16 @@ const createApiInstance = (): AxiosInstance => {
 export const api = createApiInstance();
 
 // Generic API methods
+
 export const apiService = {
   // GET request
   async get<T>(url: string, config?: AxiosRequestConfig): Promise<T> {
-    const response = await api.get<T>(url, config);
-    return response.data;
+    const response = await api.get<ApiResponse<T>>(url, config);
+    // Extract data from the API response wrapper
+    if (response.data.success && response.data.data !== undefined) {
+      return response.data.data;
+    }
+    return response.data as unknown as T;
   },
 
   // GET request with pagination
@@ -63,32 +70,52 @@ export const apiService = {
     url: string,
     params?: Record<string, any>
   ): Promise<PaginatedResponse<T>> {
-    const response = await api.get<PaginatedResponse<T>>(url, { params });
-    return response.data;
+    const response = await api.get<ApiResponse<PaginatedResponse<T>>>(url, { params });
+    // Extract data from the API response wrapper
+    if (response.data.success && response.data.data !== undefined) {
+      return response.data.data;
+    }
+    return response.data as unknown as PaginatedResponse<T>;
   },
 
   // POST request
   async post<T>(url: string, data?: any, config?: AxiosRequestConfig): Promise<T> {
-    const response = await api.post<T>(url, data, config);
-    return response.data;
+    const response = await api.post<ApiResponse<T>>(url, data, config);
+    // Extract data from the API response wrapper
+    if (response.data.success && response.data.data !== undefined) {
+      return response.data.data;
+    }
+    return response.data as unknown as T;
   },
 
   // PUT request
   async put<T>(url: string, data?: any, config?: AxiosRequestConfig): Promise<T> {
-    const response = await api.put<T>(url, data, config);
-    return response.data;
+    const response = await api.put<ApiResponse<T>>(url, data, config);
+    // Extract data from the API response wrapper
+    if (response.data.success && response.data.data !== undefined) {
+      return response.data.data;
+    }
+    return response.data as unknown as T;
   },
 
   // PATCH request
   async patch<T>(url: string, data?: any, config?: AxiosRequestConfig): Promise<T> {
-    const response = await api.patch<T>(url, data, config);
-    return response.data;
+    const response = await api.patch<ApiResponse<T>>(url, data, config);
+    // Extract data from the API response wrapper
+    if (response.data.success && response.data.data !== undefined) {
+      return response.data.data;
+    }
+    return response.data as unknown as T;
   },
 
   // DELETE request
   async delete<T>(url: string, config?: AxiosRequestConfig): Promise<T> {
-    const response = await api.delete<T>(url, config);
-    return response.data;
+    const response = await api.delete<ApiResponse<T>>(url, config);
+    // Extract data from the API response wrapper
+    if (response.data.success && response.data.data !== undefined) {
+      return response.data.data;
+    }
+    return response.data as unknown as T;
   },
 
   // Upload file

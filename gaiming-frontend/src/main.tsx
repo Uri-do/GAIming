@@ -9,6 +9,9 @@ import App from './App'
 import './index.css'
 import 'react-toastify/dist/ReactToastify.css'
 
+// Import environment validation
+import '@/config'
+
 // Create a client
 const queryClient = new QueryClient({
   defaultOptions: {

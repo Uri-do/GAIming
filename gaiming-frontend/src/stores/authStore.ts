@@ -1,5 +1,6 @@
 import { create } from 'zustand'
 import { persist } from 'zustand/middleware'
+import { API_CONFIG, API_ENDPOINTS } from '@/config'
 
 interface User {
   id: string
@@ -47,13 +48,8 @@ export const useAuthStore = create<AuthStore>()(
         set({ isLoading: true, error: null })
 
         try {
-          // Get API base URL from environment
-          const apiBaseUrl = import.meta.env.VITE_API_BASE_URL || 'http://localhost:65073/api'
-          console.log('Auth Store - API Base URL:', apiBaseUrl)
-          console.log('Auth Store - Environment variables:', import.meta.env)
-
           // Call our backend API
-          const response = await fetch(`${apiBaseUrl}/auth/login`, {
+          const response = await fetch(`${API_CONFIG.BASE_URL}${API_ENDPOINTS.AUTH.LOGIN}`, {
             method: 'POST',
             headers: {
               'Content-Type': 'application/json',
@@ -136,10 +132,7 @@ export const useAuthStore = create<AuthStore>()(
         }
 
         try {
-          // Get API base URL from environment
-          const apiBaseUrl = import.meta.env.VITE_API_BASE_URL || 'http://localhost:65073/api'
-
-          const response = await fetch(`${apiBaseUrl}/auth/refresh`, {
+          const response = await fetch(`${API_CONFIG.BASE_URL}${API_ENDPOINTS.AUTH.REFRESH}`, {
             method: 'POST',
             headers: {
               'Authorization': `Bearer ${token}`,
@@ -213,7 +206,7 @@ export const useAuthStore = create<AuthStore>()(
 
 // Auto-refresh token before expiration
 const setupTokenRefresh = () => {
-  const refreshInterval = 15 * 60 * 1000 // 15 minutes
+  const refreshInterval = API_CONFIG.TOKEN_REFRESH.interval
   
   setInterval(async () => {
     const { isAuthenticated, refreshToken } = useAuthStore.getState()
@@ -238,11 +231,8 @@ const initializeAuth = () => {
   const token = localStorage.getItem('authToken')
 
   if (token) {
-    // Get API base URL from environment
-    const apiBaseUrl = import.meta.env.VITE_API_BASE_URL || 'http://localhost:65073/api'
-
     // Verify token with backend
-    fetch(`${apiBaseUrl}/auth/me`, {
+    fetch(`${API_CONFIG.BASE_URL}${API_ENDPOINTS.AUTH.ME}`, {
       headers: {
         'Authorization': `Bearer ${token}`,
       },

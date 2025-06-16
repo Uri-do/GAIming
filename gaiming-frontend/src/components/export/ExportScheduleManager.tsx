@@ -20,10 +20,10 @@ import {
   type ScheduleFrequency,
   type ExportType,
 } from '../../services/exportSchedulingService';
-import Card from '../UI/Card';
-import Button from '../UI/Button';
-import Badge from '../UI/Badge';
-import LoadingSpinner from '../UI/LoadingSpinner';
+import { Card, CardHeader, CardTitle, CardContent } from '@/components/ui/Card';
+import Button from '@/components/ui/Button';
+import Badge from '@/components/ui/Badge';
+import LoadingSpinner from '@/components/ui/LoadingSpinner';
 
 interface ExportScheduleManagerProps {
   className?: string;

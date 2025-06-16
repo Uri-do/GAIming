@@ -13,9 +13,9 @@ import {
   MoreHorizontal,
   Settings
 } from 'lucide-react'
-import { Button } from '@/components/ui/button'
+import { Button } from '@/components/ui/Button'
 import { Input } from '@/components/ui/input'
-import { Badge } from '@/components/ui/badge'
+import { Badge } from '@/components/ui/Badge'
 import {
   Table,
   TableBody,
@@ -30,7 +30,7 @@ import {
   DropdownMenuItem,
   DropdownMenuTrigger,
 } from '@/components/ui/dropdown-menu'
-import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/ui/card'
+import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/ui/Card'
 import { toast } from 'sonner'
 import { userManagementApi, Role } from '@/services/userManagementApi'
 import { CreateRoleDialog } from '@/components/admin/CreateRoleDialog'

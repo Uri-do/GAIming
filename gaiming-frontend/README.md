@@ -59,11 +59,16 @@ A modern, responsive React frontend for the GAIming AI-powered gaming recommenda
 src/
 ├── components/          # Reusable UI components
 │   ├── Layout/         # Layout components (Header, Sidebar)
-│   └── UI/             # Basic UI components
+│   ├── ui/             # Basic UI components
+│   ├── admin/          # Admin-specific components
+│   ├── auth/           # Authentication components
+│   ├── charts/         # Chart components
+│   └── export/         # Export-related components
 ├── pages/              # Page components
 ├── services/           # API service layer
 ├── stores/             # Zustand stores
 ├── types/              # TypeScript type definitions
+├── config/             # Configuration files
 ├── lib/                # Utility functions
 ├── hooks/              # Custom React hooks
 └── assets/             # Static assets

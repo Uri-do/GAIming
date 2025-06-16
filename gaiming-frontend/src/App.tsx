@@ -15,6 +15,7 @@ const Recommendations = React.lazy(() => import('@/pages/Recommendations'))
 const Analytics = React.lazy(() => import('@/pages/Analytics'))
 const ABTesting = React.lazy(() => import('@/pages/ABTesting'))
 const Models = React.lazy(() => import('@/pages/Models'))
+const ModelDetail = React.lazy(() => import('@/pages/ModelDetail'))
 const Settings = React.lazy(() => import('@/pages/Settings'))
 // Admin routes
 const UserManagement = React.lazy(() => import('@/pages/admin/UserManagement'))
@@ -59,15 +60,17 @@ function App() {
 
   // Apply theme class to document
   React.useEffect(() => {
+    const getEffectiveTheme = (mode: string): 'light' | 'dark' => {
+      if (mode === 'system') {
+        return window.matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light'
+      }
+      return mode as 'light' | 'dark'
+    }
+
+    const effectiveTheme = getEffectiveTheme(theme.mode)
     const root = document.documentElement
     root.classList.remove('light', 'dark')
-    
-    if (theme.mode === 'system') {
-      const systemTheme = window.matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light'
-      root.classList.add(systemTheme)
-    } else {
-      root.classList.add(theme.mode)
-    }
+    root.classList.add(effectiveTheme)
   }, [theme.mode])
 
   return (
@@ -116,6 +119,7 @@ function App() {
 
             {/* Models */}
             <Route path="models" element={<Models />} />
+            <Route path="models/:modelId" element={<ModelDetail />} />
 
             {/* Settings */}
             <Route path="settings" element={<Settings />} />

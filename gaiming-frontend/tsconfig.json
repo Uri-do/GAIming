@@ -27,10 +27,5 @@
     }
   },
   "include": ["src"],
-  "exclude": [
-    "src/components/admin/**/*",
-    "src/pages/admin/**/*",
-    "src/services/userManagementApi.ts"
-  ],
   "references": [{ "path": "./tsconfig.node.json" }]
 }

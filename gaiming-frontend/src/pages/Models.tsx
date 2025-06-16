@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import { Helmet } from 'react-helmet-async';
+import { useNavigate } from 'react-router-dom';
 import {
   Brain,
   Play,
@@ -19,14 +20,15 @@ import { mlModelsService, type MLModel, type ModelRequest } from '../services/ml
 import type { ModelPerformanceMetrics } from '../types';
 
 import BarChart from '../components/charts/BarChart';
-import Card from '../components/UI/Card';
-import Button from '../components/UI/Button';
-import Badge from '../components/UI/Badge';
-import LoadingSpinner from '../components/UI/LoadingSpinner';
+import { Card, CardHeader, CardTitle, CardDescription, CardContent } from '@/components/ui/Card';
+import Button from '@/components/ui/Button';
+import Badge from '@/components/ui/Badge';
+import LoadingSpinner from '@/components/ui/LoadingSpinner';
 import AuthGuard, { usePermissions } from '../components/auth/AuthGuard';
 import { exportService } from '../services/exportService';
 
 const ModelsContent: React.FC = () => {
+  const navigate = useNavigate();
   const { canManageModels, canExportModels, canDeployModels } = usePermissions();
   const [models, setModels] = useState<MLModel[]>([]);
   const [loading, setLoading] = useState(true);
@@ -110,6 +112,10 @@ const ModelsContent: React.FC = () => {
 
   const handlePageChange = (page: number) => {
     setFilters(prev => ({ ...prev, page }));
+  };
+
+  const handleViewModelDetails = (model: MLModel) => {
+    navigate(`/models/${model.id}`);
   };
 
   const getStatusColor = (status: string) => {
@@ -534,7 +540,7 @@ const ModelsContent: React.FC = () => {
                           <Button
                             variant="ghost"
                             size="sm"
-                            onClick={() => setSelectedModel(model)}
+                            onClick={() => handleViewModelDetails(model)}
                             title="View Model Details"
                           >
                             <Eye className="h-4 w-4" />

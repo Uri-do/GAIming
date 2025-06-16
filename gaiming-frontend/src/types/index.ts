@@ -380,6 +380,8 @@ export interface ThemeConfig {
   fontFamily: string;
 }
 
+export type ThemeMode = 'light' | 'dark' | 'system';
+
 // User Preferences
 export interface UserPreferences {
   theme: ThemeConfig;

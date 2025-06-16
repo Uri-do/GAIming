@@ -5,8 +5,8 @@ import { Eye, EyeOff, Brain, Gamepad2 } from 'lucide-react'
 import { useAuthStore } from '@/stores/authStore'
 import { toast } from 'react-toastify'
 
-import Button from '@/components/UI/Button'
-import { Card, CardContent } from '@/components/UI/Card'
+import Button from '@/components/ui/Button'
+import { Card, CardContent } from '@/components/ui/Card'
 
 interface LoginForm {
   username: string

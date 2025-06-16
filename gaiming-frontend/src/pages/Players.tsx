@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import { Helmet } from 'react-helmet-async';
+import { useNavigate } from 'react-router-dom';
 import {
   Search,
   Download,
@@ -17,15 +18,16 @@ import { playerAnalyticsService, type PlayerAnalytics, type PlayerAnalyticsReque
 
 import BarChart from '../components/charts/BarChart';
 import PieChart from '../components/charts/PieChart';
-import Card from '../components/UI/Card';
-import Button from '../components/UI/Button';
-import Badge from '../components/UI/Badge';
-import LoadingSpinner from '../components/UI/LoadingSpinner';
+import { Card, CardHeader, CardTitle, CardDescription, CardContent } from '@/components/ui/Card';
+import Button from '@/components/ui/Button';
+import Badge from '@/components/ui/Badge';
+import LoadingSpinner from '@/components/ui/LoadingSpinner';
 import AuthGuard, { usePermissions } from '../components/auth/AuthGuard';
 import ExportProgressDialog from '../components/export/ExportProgressDialog';
 import { useExport } from '../hooks/useExport';
 
 const PlayersContent: React.FC = () => {
+  const navigate = useNavigate();
   const { canExportPlayers, user } = usePermissions();
   const [players, setPlayers] = useState<PlayerAnalytics[]>([]);
   const [overview, setOverview] = useState<PlayersOverview | null>(null);
@@ -114,8 +116,14 @@ const PlayersContent: React.FC = () => {
   };
 
   const handlePlayerClick = (player: PlayerAnalytics) => {
-    setSelectedPlayer(player);
-    setShowPlayerModal(true);
+    navigate(`/players/${player.playerId}`);
+  };
+
+  const handleViewPlayerDetails = (player: PlayerAnalytics, event?: React.MouseEvent) => {
+    if (event) {
+      event.stopPropagation();
+    }
+    navigate(`/players/${player.playerId}`);
   };
 
   const handleExport = async (format: 'csv' | 'excel' | 'pdf' = 'csv') => {
@@ -504,10 +512,7 @@ const PlayersContent: React.FC = () => {
                       <Button
                         variant="ghost"
                         size="sm"
-                        onClick={(e) => {
-                          e.stopPropagation();
-                          handlePlayerClick(player);
-                        }}
+                        onClick={(e) => handleViewPlayerDetails(player, e)}
                         title="View Player Details"
                       >
                         <Eye className="h-4 w-4" />

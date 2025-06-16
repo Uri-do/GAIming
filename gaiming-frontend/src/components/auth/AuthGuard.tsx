@@ -2,7 +2,7 @@ import React from 'react';
 import { Navigate, useLocation } from 'react-router-dom';
 import { Shield, Lock, AlertTriangle } from 'lucide-react';
 import { useAuthStore } from '../../stores/authStore';
-import LoadingSpinner from '../UI/LoadingSpinner';
+import LoadingSpinner from '@/components/ui/LoadingSpinner';
 
 interface AuthGuardProps {
   children: React.ReactNode;

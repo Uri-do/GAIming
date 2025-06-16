@@ -1,13 +1,15 @@
 import React, { useState, useEffect } from 'react'
-import { Search, Filter, Plus, Gamepad2, Monitor, Smartphone, Star, TrendingUp } from 'lucide-react'
+import { useNavigate } from 'react-router-dom'
+import { Search, Filter, Plus, Gamepad2, Monitor, Smartphone, Star, TrendingUp, Eye } from 'lucide-react'
 import { gameService } from '@/services/gameService'
 import { Game, PaginatedResponse } from '@/types'
-import { Card, CardHeader, CardTitle, CardDescription, CardContent } from '@/components/UI/Card'
-import Button from '@/components/UI/Button'
-import Badge from '@/components/UI/Badge'
-import LoadingSpinner from '@/components/UI/LoadingSpinner'
+import { Card, CardHeader, CardTitle, CardDescription, CardContent } from '@/components/ui/Card'
+import Button from '@/components/ui/Button'
+import Badge from '@/components/ui/Badge'
+import LoadingSpinner from '@/components/ui/LoadingSpinner'
 
 const Games: React.FC = () => {
+  const navigate = useNavigate()
   const [games, setGames] = useState<Game[]>([])
   const [loading, setLoading] = useState(true)
   const [error, setError] = useState<string | null>(null)
@@ -58,6 +60,10 @@ const Games: React.FC = () => {
 
   const handlePageChange = (newPage: number) => {
     fetchGames(newPage)
+  }
+
+  const handleViewDetails = (gameId: number) => {
+    navigate(`/games/${gameId}`)
   }
 
   if (loading) {
@@ -161,12 +167,12 @@ const Games: React.FC = () => {
       {/* Games Grid */}
       <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-6">
         {games && games.length > 0 ? games.map((game) => (
-          <Card key={game.gameId} variant="gaming" hover glow className="relative overflow-hidden">
-            <div className="absolute inset-0 bg-gradient-to-br from-primary-500/5 to-purple-500/5" />
+          <Card key={game.gameId} variant="gaming" hover glow className="relative overflow-hidden group cursor-pointer">
+            <div className="absolute inset-0 bg-gradient-to-br from-primary-500/5 to-purple-500/5 group-hover:from-primary-500/10 group-hover:to-purple-500/10 transition-all duration-300" />
             <CardContent className="relative z-10 p-6">
               <div className="flex items-start justify-between mb-4">
                 <div className="flex-1">
-                  <h3 className="font-semibold text-white mb-2 truncate text-lg">
+                  <h3 className="font-semibold text-white mb-2 truncate text-lg group-hover:text-primary-400 transition-colors">
                     {game.gameName}
                   </h3>
                   <p className="text-sm text-gray-400 mb-1">
@@ -208,7 +214,14 @@ const Games: React.FC = () => {
                   </div>
                 </div>
 
-                <Button variant="ghost" size="sm" fullWidth className="hover:bg-primary-500/10">
+                <Button
+                  variant="ghost"
+                  size="sm"
+                  fullWidth
+                  className="hover:bg-primary-500/20 hover:text-primary-300 transition-all duration-200"
+                  onClick={() => handleViewDetails(game.gameId)}
+                  icon={<Eye className="w-4 h-4" />}
+                >
                   View Details
                 </Button>
               </div>

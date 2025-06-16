@@ -10,10 +10,12 @@ import {
   Activity
 } from 'lucide-react'
 import { gameService } from '@/services/gameService'
-import LoadingSpinner from '@/components/UI/LoadingSpinner'
-import { Card, CardHeader, CardTitle, CardContent } from '@/components/UI/Card'
-import Button from '@/components/UI/Button'
-import Badge from '@/components/UI/Badge'
+import { apiService } from '@/services/api'
+import { API_ENDPOINTS } from '@/config'
+import LoadingSpinner from '@/components/ui/LoadingSpinner'
+import { Card, CardHeader, CardTitle, CardContent } from '@/components/ui/Card'
+import Button from '@/components/ui/Button'
+import Badge from '@/components/ui/Badge'
 import { formatNumber, formatPercentage, getChangeColor } from '@/lib/utils'
 
 interface MetricCardProps {
@@ -71,27 +73,17 @@ const MetricCard: React.FC<MetricCardProps> = ({
 }
 
 const Dashboard: React.FC = () => {
-  // Fetch dashboard metrics (using the correct endpoint)
+  // Fetch dashboard metrics
   const { data: dashboardData, isLoading: dashboardLoading } = useQuery({
     queryKey: ['dashboard-metrics'],
-    queryFn: async () => {
-      const response = await fetch(`${import.meta.env.VITE_API_BASE_URL}/analytics/dashboard`)
-      if (!response.ok) throw new Error('Failed to fetch dashboard metrics')
-      const result = await response.json()
-      return result.data
-    },
+    queryFn: () => apiService.get(API_ENDPOINTS.ANALYTICS.DASHBOARD),
     refetchInterval: 30000, // Refresh every 30 seconds
   })
 
   // Fetch recommendation analytics
   const { data: recommendationData, isLoading: recommendationLoading } = useQuery({
     queryKey: ['recommendation-analytics'],
-    queryFn: async () => {
-      const response = await fetch(`${import.meta.env.VITE_API_BASE_URL}/recommendations/analytics`)
-      if (!response.ok) throw new Error('Failed to fetch recommendation analytics')
-      const result = await response.json()
-      return result.data
-    },
+    queryFn: () => apiService.get(API_ENDPOINTS.RECOMMENDATIONS.ANALYTICS),
   })
 
   // Fetch games data
