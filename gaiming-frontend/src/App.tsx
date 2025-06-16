@@ -1,7 +1,7 @@
 import React, { Suspense } from 'react'
 import { Routes, Route, Navigate } from 'react-router-dom'
-import { useAuthStore } from '@/stores/authStore'
-import { useThemeStore } from '@/stores/themeStore'
+import { useAuthStore } from '@/app/store/authStore'
+import { useThemeStore } from '@/app/store/themeStore'
 import Layout from '@/components/Layout/Layout'
 import LoadingSpinner from '@/components/ui/LoadingSpinner'
 
@@ -27,6 +27,15 @@ const PermissionManagement = React.lazy(() => import('@/pages/admin/PermissionMa
 const UserActivity = React.lazy(() => import('@/pages/admin/UserActivity'))
 const UIShowcase = React.lazy(() => import('@/pages/UIShowcase'))
 const AuthTest = React.lazy(() => import('@/components/test/AuthTest'))
+const Phase1Testing = React.lazy(() => import('@/pages/Phase1Testing'))
+const JWTTesting = React.lazy(() => import('@/pages/JWTTesting'))
+const GamesManagement = React.lazy(() => import('@/pages/GamesManagement'))
+const GamesTestingSuite = React.lazy(() => import('@/pages/GamesTestingSuite'))
+const AnalyticsDashboard = React.lazy(() => import('@/pages/AnalyticsDashboard'))
+const GameRecommendations = React.lazy(() => import('@/pages/GameRecommendations'))
+const RecommendationAnalytics = React.lazy(() => import('@/pages/RecommendationAnalytics'))
+const SystemTestingSuite = React.lazy(() => import('@/pages/SystemTestingSuite'))
+const PerformanceDashboard = React.lazy(() => import('@/pages/PerformanceDashboard'))
 const Login = React.lazy(() => import('@/pages/Login'))
 const NotFound = React.lazy(() => import('@/pages/NotFound'))
 
@@ -107,6 +116,8 @@ function App() {
             {/* Games */}
             <Route path="games" element={<Games />} />
             <Route path="games/:gameId" element={<GameDetail />} />
+            <Route path="games-management" element={<GamesManagement />} />
+            <Route path="games-testing" element={<GamesTestingSuite />} />
 
             {/* Players */}
             <Route path="players" element={<Players />} />
@@ -119,6 +130,11 @@ function App() {
 
             {/* Analytics */}
             <Route path="analytics" element={<Analytics />} />
+            <Route path="analytics-dashboard" element={<AnalyticsDashboard />} />
+
+            {/* Recommendations */}
+            <Route path="recommendations" element={<GameRecommendations />} />
+            <Route path="recommendation-analytics" element={<RecommendationAnalytics />} />
 
             {/* A/B Testing */}
             <Route path="ab-testing" element={<ABTesting />} />
@@ -136,6 +152,18 @@ function App() {
 
             {/* Auth Test */}
             <Route path="auth-test" element={<AuthTest />} />
+
+            {/* Phase 1 Testing */}
+            <Route path="phase1-testing" element={<Phase1Testing />} />
+
+            {/* JWT Testing */}
+            <Route path="jwt-testing" element={<JWTTesting />} />
+
+            {/* System Testing */}
+            <Route path="system-testing" element={<SystemTestingSuite />} />
+
+            {/* Performance Dashboard */}
+            <Route path="performance" element={<PerformanceDashboard />} />
 
             {/* Admin Routes */}
             <Route path="admin/users" element={<UserManagement />} />

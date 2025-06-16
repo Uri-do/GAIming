@@ -14,7 +14,9 @@ import {
   Activity,
   ChevronLeft,
   ChevronRight,
-  Palette
+  Palette,
+  TrendingUp,
+  Sparkles
 } from 'lucide-react'
 import { useThemeStore } from '@/stores/themeStore'
 import { cn } from '@/lib/utils'
@@ -41,6 +43,34 @@ const navigationItems: NavigationItem[] = [
     icon: Gamepad2,
   },
   {
+    id: 'games-management',
+    label: 'Games Management',
+    path: '/games-management',
+    icon: Settings,
+    badge: 'Pro',
+  },
+  {
+    id: 'games-testing',
+    label: 'Games Testing',
+    path: '/games-testing',
+    icon: FlaskConical,
+    badge: 'Test',
+  },
+  {
+    id: 'system-testing',
+    label: 'System Testing',
+    path: '/system-testing',
+    icon: Activity,
+    badge: 'E2E',
+  },
+  {
+    id: 'performance',
+    label: 'Performance',
+    path: '/performance',
+    icon: TrendingUp,
+    badge: 'Live',
+  },
+  {
     id: 'players',
     label: 'Players',
     path: '/players',
@@ -55,22 +85,30 @@ const navigationItems: NavigationItem[] = [
   },
   {
     id: 'recommendations',
-    label: 'Recommendations',
+    label: 'Game Recommendations',
     path: '/recommendations',
-    icon: Target,
-  },
-  {
-    id: 'recommendations-dashboard',
-    label: 'Rec Dashboard',
-    path: '/recommendations/dashboard',
-    icon: BarChart3,
-    badge: 'Live',
+    icon: Sparkles,
+    badge: 'AI',
   },
   {
     id: 'analytics',
     label: 'Analytics',
     path: '/analytics',
     icon: BarChart3,
+  },
+  {
+    id: 'analytics-dashboard',
+    label: 'Analytics Dashboard',
+    path: '/analytics-dashboard',
+    icon: TrendingUp,
+    badge: 'Live',
+  },
+  {
+    id: 'recommendation-analytics',
+    label: 'Recommendation Analytics',
+    path: '/recommendation-analytics',
+    icon: Brain,
+    badge: 'ML',
   },
   {
     id: 'ab-testing',
@@ -111,6 +149,20 @@ const navigationItems: NavigationItem[] = [
     path: '/auth-test',
     icon: Shield,
     badge: 'Test',
+  },
+  {
+    id: 'phase1-testing',
+    label: 'Phase 1 Testing',
+    path: '/phase1-testing',
+    icon: FlaskConical,
+    badge: 'New',
+  },
+  {
+    id: 'jwt-testing',
+    label: 'JWT Testing',
+    path: '/jwt-testing',
+    icon: Shield,
+    badge: 'Security',
   },
   {
     id: 'admin-users',

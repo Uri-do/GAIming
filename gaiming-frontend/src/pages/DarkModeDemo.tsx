@@ -1,7 +1,7 @@
 import React from 'react'
 import { Sun, Moon, Monitor, Palette, Settings, Bell, User } from 'lucide-react'
 import { ThemeToggle } from '@/components/ui/ThemeToggle'
-import { useThemeStore } from '@/stores/themeStore'
+import { useThemeStore } from '@/app/store/themeStore'
 
 const DarkModeDemo: React.FC = () => {
   const { theme } = useThemeStore()

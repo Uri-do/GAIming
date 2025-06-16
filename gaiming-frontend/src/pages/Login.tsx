@@ -2,7 +2,7 @@ import React, { useState } from 'react'
 import { useNavigate } from 'react-router-dom'
 import { useForm } from 'react-hook-form'
 import { Eye, EyeOff, Brain, Gamepad2 } from 'lucide-react'
-import { useAuthStore } from '@/stores/authStore'
+import { useAuthStore } from '@/app/store/authStore'
 import { toast } from 'react-toastify'
 
 import Button from '@/components/ui/Button'

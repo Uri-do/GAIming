@@ -1,6 +1,6 @@
 import React from 'react'
 import { Sun, Moon, Monitor, Palette, Type } from 'lucide-react'
-import { useThemeStore } from '@/stores/themeStore'
+import { useThemeStore } from '@/app/store/themeStore'
 import { ThemeMode } from '@/types'
 import { cn } from '@/lib/utils'
 

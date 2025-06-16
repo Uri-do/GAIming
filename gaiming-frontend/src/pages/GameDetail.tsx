@@ -15,9 +15,9 @@ import {
   Target,
   Gamepad2
 } from 'lucide-react'
-import { gameService } from '@/services/gameService'
-import { Game } from '@/types'
-import { Card, CardHeader, CardTitle, CardDescription, CardContent } from '@/components/ui/Card'
+import { gameService } from '@/features/games/services'
+import type { Game } from '@/features/games/types'
+import { Card, CardContent } from '@/components/ui/Card'
 import Button from '@/components/ui/Button'
 import Badge from '@/components/ui/Badge'
 import LoadingSpinner from '@/components/ui/LoadingSpinner'
@@ -77,10 +77,10 @@ const GameDetail: React.FC = () => {
             Back to Games
           </Button>
         </div>
-        <Card variant="gaming" className="text-center">
-          <CardContent className="p-8">
-            <LoadingSpinner size="xl" variant="gaming" />
-            <p className="text-gray-300 mt-4 text-lg">Loading game details...</p>
+        <Card>
+          <CardContent className="p-8 text-center">
+            <LoadingSpinner size="lg" />
+            <p className="text-gray-600 dark:text-gray-300 mt-4 text-lg">Loading game details...</p>
           </CardContent>
         </Card>
       </div>
@@ -99,24 +99,24 @@ const GameDetail: React.FC = () => {
             Back to Games
           </Button>
         </div>
-        <Card variant="gaming" className="border-error-500/30">
-          <CardHeader variant="gaming">
-            <CardTitle className="text-white flex items-center gap-2">
-              <Gamepad2 className="w-5 h-5 text-error-400" />
-              Error Loading Game
-            </CardTitle>
-            <CardDescription className="text-gray-400">
-              {error || 'Game not found'}
-            </CardDescription>
-          </CardHeader>
-          <CardContent>
-            <Button
-              variant="destructive"
-              onClick={fetchGameDetails}
-              icon={<TrendingUp />}
-            >
-              Retry Loading
-            </Button>
+        <Card>
+          <CardContent className="p-6">
+            <div className="text-center">
+              <div className="flex items-center justify-center gap-2 mb-4">
+                <Gamepad2 className="w-5 h-5 text-red-500" />
+                <h2 className="text-xl font-semibold text-gray-900 dark:text-white">Error Loading Game</h2>
+              </div>
+              <p className="text-gray-600 dark:text-gray-400 mb-4">
+                {error || 'Game not found'}
+              </p>
+              <Button
+                variant="primary"
+                onClick={fetchGameDetails}
+              >
+                <TrendingUp className="w-4 h-4 mr-2" />
+                Retry Loading
+              </Button>
+            </div>
           </CardContent>
         </Card>
       </div>
@@ -145,10 +145,12 @@ const GameDetail: React.FC = () => {
           </div>
         </div>
         <div className="flex gap-3">
-          <Button variant="outline" icon={<Edit className="w-4 h-4" />}>
+          <Button variant="outline">
+            <Edit className="w-4 h-4 mr-2" />
             Edit Game
           </Button>
-          <Button variant="primary" icon={<BarChart3 className="w-4 h-4" />}>
+          <Button variant="primary">
+            <BarChart3 className="w-4 h-4 mr-2" />
             View Analytics
           </Button>
         </div>
@@ -158,14 +160,13 @@ const GameDetail: React.FC = () => {
       <div className="grid grid-cols-1 lg:grid-cols-3 gap-6">
         {/* Main Game Info */}
         <div className="lg:col-span-2">
-          <Card variant="gaming" glow>
-            <CardHeader variant="gaming">
-              <CardTitle className="text-white flex items-center gap-2">
-                <Gamepad2 className="w-5 h-5 text-primary-400" />
-                Game Information
-              </CardTitle>
-            </CardHeader>
-            <CardContent className="space-y-4">
+          <Card>
+            <CardContent className="p-6">
+              <div className="flex items-center gap-2 mb-6">
+                <Gamepad2 className="w-5 h-5 text-blue-500" />
+                <h3 className="text-xl font-semibold text-gray-900 dark:text-white">Game Information</h3>
+              </div>
+              <div className="space-y-4">
               <div className="grid grid-cols-2 gap-4">
                 <div>
                   <label className="text-sm text-gray-400">Game ID</label>
@@ -245,14 +246,12 @@ const GameDetail: React.FC = () => {
 
         {/* Game Statistics */}
         <div>
-          <Card variant="gaming" glow>
-            <CardHeader variant="gaming">
-              <CardTitle className="text-white flex items-center gap-2">
-                <BarChart3 className="w-5 h-5 text-primary-400" />
-                Statistics
-              </CardTitle>
-            </CardHeader>
-            <CardContent>
+          <Card>
+            <CardContent className="p-6">
+              <div className="flex items-center gap-2 mb-6">
+                <BarChart3 className="w-5 h-5 text-blue-500" />
+                <h3 className="text-xl font-semibold text-gray-900 dark:text-white">Statistics</h3>
+              </div>
               {statsLoading ? (
                 <div className="text-center py-8">
                   <LoadingSpinner variant="gaming" />
@@ -320,14 +319,12 @@ const GameDetail: React.FC = () => {
       {/* Additional Details */}
       <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">
         {/* Betting Limits */}
-        <Card variant="gaming">
-          <CardHeader variant="gaming">
-            <CardTitle className="text-white flex items-center gap-2">
-              <DollarSign className="w-5 h-5 text-primary-400" />
-              Betting Limits
-            </CardTitle>
-          </CardHeader>
-          <CardContent>
+        <Card>
+          <CardContent className="p-6">
+            <div className="flex items-center gap-2 mb-6">
+              <DollarSign className="w-5 h-5 text-green-500" />
+              <h3 className="text-xl font-semibold text-gray-900 dark:text-white">Betting Limits</h3>
+            </div>
             <div className="grid grid-cols-2 gap-4">
               <div>
                 <label className="text-sm text-gray-400">Minimum Bet</label>
@@ -346,14 +343,12 @@ const GameDetail: React.FC = () => {
         </Card>
 
         {/* Game Metadata */}
-        <Card variant="gaming">
-          <CardHeader variant="gaming">
-            <CardTitle className="text-white flex items-center gap-2">
-              <Calendar className="w-5 h-5 text-primary-400" />
-              Metadata
-            </CardTitle>
-          </CardHeader>
-          <CardContent>
+        <Card>
+          <CardContent className="p-6">
+            <div className="flex items-center gap-2 mb-6">
+              <Calendar className="w-5 h-5 text-purple-500" />
+              <h3 className="text-xl font-semibold text-gray-900 dark:text-white">Metadata</h3>
+            </div>
             <div className="space-y-3">
               <div>
                 <label className="text-sm text-gray-400">Release Date</label>
