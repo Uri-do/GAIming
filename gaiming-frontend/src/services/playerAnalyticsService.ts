@@ -199,7 +199,7 @@ export interface PlayerAnalyticsRequest {
 }
 
 class PlayerAnalyticsService {
-  private readonly baseUrl = '/api/PlayerAnalytics';
+  private readonly baseUrl = '/PlayerAnalytics';
 
   async getPlayers(request: PlayerAnalyticsRequest = {}): Promise<PaginatedResponse<PlayerAnalytics>> {
     const params = new URLSearchParams();

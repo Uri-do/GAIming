@@ -152,7 +152,7 @@ public class MLModelsController : ControllerBase
             var totalCount = filteredModels.Count();
             var models = filteredModels.Skip((page - 1) * pageSize).Take(pageSize).ToList();
 
-            var result = new PaginatedResponse<MLModel>
+            var paginatedData = new PaginatedResponse<MLModel>
             {
                 Items = models,
                 TotalCount = totalCount,
@@ -160,7 +160,14 @@ public class MLModelsController : ControllerBase
                 PageSize = pageSize
             };
 
-            return Ok(result);
+            var response = new
+            {
+                data = paginatedData,
+                success = true,
+                message = "ML models retrieved successfully"
+            };
+
+            return Ok(response);
         }
         catch (Exception ex)
         {
@@ -377,7 +384,14 @@ public class MLModelsController : ControllerBase
                 }
             };
 
-            return Ok(metrics);
+            var response = new
+            {
+                data = metrics,
+                success = true,
+                message = "Model performance metrics retrieved successfully"
+            };
+
+            return Ok(response);
         }
         catch (Exception ex)
         {

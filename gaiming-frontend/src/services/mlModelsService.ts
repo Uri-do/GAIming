@@ -233,7 +233,7 @@ export interface DeploymentRequest {
 }
 
 class MLModelsService {
-  private readonly baseUrl = '/api/MLModels';
+  private readonly baseUrl = '/MLModels';
 
   async getModels(request: ModelRequest = {}): Promise<PaginatedResponse<MLModel>> {
     const params = new URLSearchParams();

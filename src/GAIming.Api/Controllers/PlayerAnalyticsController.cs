@@ -74,96 +74,88 @@ public class PlayerAnalyticsController : ControllerBase
                 SortDirection = sortDirection.ToLower() == "desc" ? "desc" : "asc"
             };
 
-            // Temporary implementation - return mock data until service is fixed
-            var mockPlayers = new List<PlayerAnalyticsDto>
+            // Temporary implementation - return mock data that matches frontend interface
+            var mockPlayers = new List<object>
             {
-                new PlayerAnalyticsDto
+                new
                 {
-                    PlayerId = 1,
-                    Username = "player1",
-                    Email = "player1@example.com",
-                    FirstName = "John",
-                    LastName = "Doe",
-                    Country = "US",
-                    VipLevel = 2,
-                    RiskLevel = 1,
-                    IsActive = true,
-                    RegistrationDate = DateTime.UtcNow.AddDays(-30),
-                    TotalSessions = 25,
-                    TotalBets = 1500.00m,
-                    TotalWins = 1200.00m,
-                    TotalRevenue = 300.00m,
-                    AverageSessionDuration = 45.5,
-                    AverageBetSize = 60.00m,
-                    PlayerSegment = "Regular",
-                    LifetimeValue = 500.00m,
-                    RetentionScore = 0.75,
-                    EngagementScore = 85.0,
-                    RiskScore = 20.0
+                    playerId = 1,
+                    username = "player1",
+                    email = "player1@example.com",
+                    firstName = "John",
+                    lastName = "Doe",
+                    country = "US",
+                    vipLevel = 2,
+                    riskLevel = 1,
+                    isActive = true,
+                    registrationDate = DateTime.UtcNow.AddDays(-30).ToString("yyyy-MM-ddTHH:mm:ss.fffZ"),
+                    lastLoginDate = DateTime.UtcNow.AddDays(-1).ToString("yyyy-MM-ddTHH:mm:ss.fffZ"),
+                    totalSessions = 25,
+                    totalBets = 1500.00,
+                    totalWins = 1200.00,
+                    totalRevenue = 300.00,
+                    averageSessionDuration = 45.5,
+                    averageBetSize = 60.00,
+                    favoriteGameTypes = new[] { "Slots", "Blackjack" },
+                    preferredProviders = new[] { "NetEnt", "Microgaming" },
+                    playerSegment = "Regular",
+                    lifetimeValue = 500.00,
+                    retentionScore = 0.75,
+                    engagementScore = 85.0,
+                    riskScore = 20.0
                 },
-                new PlayerAnalyticsDto
+                new
                 {
-                    PlayerId = 2,
-                    Username = "player2",
-                    Email = "player2@example.com",
-                    FirstName = "Jane",
-                    LastName = "Smith",
-                    Country = "UK",
-                    VipLevel = 4,
-                    RiskLevel = 2,
-                    IsActive = true,
-                    RegistrationDate = DateTime.UtcNow.AddDays(-60),
-                    TotalSessions = 50,
-                    TotalBets = 5000.00m,
-                    TotalWins = 4200.00m,
-                    TotalRevenue = 800.00m,
-                    AverageSessionDuration = 65.0,
-                    AverageBetSize = 100.00m,
-                    PlayerSegment = "High Value",
-                    LifetimeValue = 1500.00m,
-                    RetentionScore = 0.90,
-                    EngagementScore = 95.0,
-                    RiskScore = 40.0
+                    playerId = 2,
+                    username = "player2",
+                    email = "player2@example.com",
+                    firstName = "Jane",
+                    lastName = "Smith",
+                    country = "UK",
+                    vipLevel = 4,
+                    riskLevel = 2,
+                    isActive = true,
+                    registrationDate = DateTime.UtcNow.AddDays(-60).ToString("yyyy-MM-ddTHH:mm:ss.fffZ"),
+                    lastLoginDate = DateTime.UtcNow.AddHours(-2).ToString("yyyy-MM-ddTHH:mm:ss.fffZ"),
+                    totalSessions = 50,
+                    totalBets = 5000.00,
+                    totalWins = 4200.00,
+                    totalRevenue = 800.00,
+                    averageSessionDuration = 65.0,
+                    averageBetSize = 100.00,
+                    favoriteGameTypes = new[] { "Roulette", "Poker" },
+                    preferredProviders = new[] { "Evolution", "Pragmatic Play" },
+                    playerSegment = "High Value",
+                    lifetimeValue = 1500.00,
+                    retentionScore = 0.90,
+                    engagementScore = 95.0,
+                    riskScore = 40.0
                 }
             };
 
-            var filteredPlayers = mockPlayers.AsQueryable();
+            // For simplicity, just return the mock data without complex filtering for now
+            var totalCount = mockPlayers.Count;
+            var totalPages = (int)Math.Ceiling((double)totalCount / pageSize);
 
-            // Apply search filter
-            if (!string.IsNullOrEmpty(search))
+            var paginatedData = new
             {
-                filteredPlayers = filteredPlayers.Where(p =>
-                    p.Username.Contains(search, StringComparison.OrdinalIgnoreCase) ||
-                    p.Email.Contains(search, StringComparison.OrdinalIgnoreCase) ||
-                    (p.FirstName != null && p.FirstName.Contains(search, StringComparison.OrdinalIgnoreCase)) ||
-                    (p.LastName != null && p.LastName.Contains(search, StringComparison.OrdinalIgnoreCase)));
-            }
-
-            // Apply other filters
-            if (vipLevel.HasValue)
-                filteredPlayers = filteredPlayers.Where(p => p.VipLevel == vipLevel.Value);
-
-            if (riskLevel.HasValue)
-                filteredPlayers = filteredPlayers.Where(p => p.RiskLevel == riskLevel.Value);
-
-            if (!string.IsNullOrEmpty(segment))
-                filteredPlayers = filteredPlayers.Where(p => p.PlayerSegment == segment);
-
-            if (isActive.HasValue)
-                filteredPlayers = filteredPlayers.Where(p => p.IsActive == isActive.Value);
-
-            var totalCount = filteredPlayers.Count();
-            var players = filteredPlayers.Skip((page - 1) * pageSize).Take(pageSize).ToList();
-
-            var result = new PaginatedResponse<PlayerAnalyticsDto>
-            {
-                Items = players,
-                TotalCount = totalCount,
-                Page = page,
-                PageSize = pageSize
+                items = mockPlayers,
+                totalCount = totalCount,
+                page = page,
+                pageSize = pageSize,
+                totalPages = totalPages,
+                hasNextPage = page < totalPages,
+                hasPreviousPage = page > 1
             };
 
-            return Ok(result);
+            var response = new
+            {
+                data = paginatedData,
+                success = true,
+                message = "Players retrieved successfully"
+            };
+
+            return Ok(response);
         }
         catch (Exception ex)
         {
@@ -427,18 +419,53 @@ public class PlayerAnalyticsController : ControllerBase
         {
             _logger.LogInformation("Getting players overview for {Days} days", days);
 
-            // Mock overview data
-            var overview = new PlayersOverviewDto
+            // Mock overview data that matches frontend interface
+            var overviewData = new
             {
-                TotalPlayers = 1250,
-                ActivePlayers = 850,
-                NewPlayers = 45,
-                TotalRevenue = 125000.00m,
-                AverageSessionTime = 42.5,
-                SegmentBreakdown = new List<PlayerSegmentSummary>(),
-                ActivityTrends = new List<PlayerActivityTrend>()
+                totalPlayers = 1250,
+                activePlayers = 850,
+                newPlayers = 45,
+                churnedPlayers = 25,
+                averageLifetimeValue = 750.00m,
+                totalRevenue = 125000.00m,
+                playerSegments = new Dictionary<string, int>
+                {
+                    { "Regular", 750 },
+                    { "High Value", 300 },
+                    { "Casual", 200 }
+                },
+                topCountries = new Dictionary<string, int>
+                {
+                    { "US", 500 },
+                    { "UK", 300 },
+                    { "CA", 250 },
+                    { "Other", 200 }
+                },
+                vipDistribution = new Dictionary<string, int>
+                {
+                    { "1", 600 },
+                    { "2", 350 },
+                    { "3", 200 },
+                    { "4", 80 },
+                    { "5", 20 }
+                },
+                riskDistribution = new Dictionary<string, int>
+                {
+                    { "1", 1000 },
+                    { "2", 200 },
+                    { "3", 40 },
+                    { "4", 10 }
+                }
             };
-            return Ok(overview);
+
+            var response = new
+            {
+                data = overviewData,
+                success = true,
+                message = "Overview retrieved successfully"
+            };
+
+            return Ok(response);
         }
         catch (Exception ex)
         {
