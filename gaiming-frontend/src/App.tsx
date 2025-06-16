@@ -36,6 +36,8 @@ const GameRecommendations = React.lazy(() => import('@/pages/GameRecommendations
 const RecommendationAnalytics = React.lazy(() => import('@/pages/RecommendationAnalytics'))
 const SystemTestingSuite = React.lazy(() => import('@/pages/SystemTestingSuite'))
 const PerformanceDashboard = React.lazy(() => import('@/pages/PerformanceDashboard'))
+const FinalTestingSuite = React.lazy(() => import('@/pages/FinalTestingSuite'))
+const FeatureEnhancementPlanner = React.lazy(() => import('@/pages/FeatureEnhancementPlanner'))
 const Login = React.lazy(() => import('@/pages/Login'))
 const NotFound = React.lazy(() => import('@/pages/NotFound'))
 
@@ -164,6 +166,12 @@ function App() {
 
             {/* Performance Dashboard */}
             <Route path="performance" element={<PerformanceDashboard />} />
+
+            {/* Final Testing Suite */}
+            <Route path="final-testing" element={<FinalTestingSuite />} />
+
+            {/* Feature Enhancement Planner */}
+            <Route path="feature-planner" element={<FeatureEnhancementPlanner />} />
 
             {/* Admin Routes */}
             <Route path="admin/users" element={<UserManagement />} />

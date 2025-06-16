@@ -71,6 +71,20 @@ const navigationItems: NavigationItem[] = [
     badge: 'Live',
   },
   {
+    id: 'final-testing',
+    label: 'Final Testing',
+    path: '/final-testing',
+    icon: Target,
+    badge: 'Final',
+  },
+  {
+    id: 'feature-planner',
+    label: 'Feature Planner',
+    path: '/feature-planner',
+    icon: Brain,
+    badge: 'Strategy',
+  },
+  {
     id: 'players',
     label: 'Players',
     path: '/players',
