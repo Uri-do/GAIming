@@ -16,7 +16,8 @@ import {
   ChevronRight,
   Palette,
   TrendingUp,
-  Sparkles
+  Sparkles,
+  Cpu
 } from 'lucide-react'
 import { useThemeStore } from '@/stores/themeStore'
 import { cn } from '@/lib/utils'
@@ -83,6 +84,41 @@ const navigationItems: NavigationItem[] = [
     path: '/feature-planner',
     icon: Brain,
     badge: 'Strategy',
+  },
+  {
+    id: 'ai-lab',
+    label: 'AI Innovation Lab',
+    path: '/ai-lab',
+    icon: Cpu,
+    badge: 'AI',
+  },
+  {
+    id: 'business-intelligence',
+    label: 'Business Intelligence',
+    path: '/business-intelligence',
+    icon: BarChart3,
+    badge: 'KPI',
+  },
+  {
+    id: 'nextgen-ai',
+    label: 'Next-Gen AI Lab',
+    path: '/nextgen-ai',
+    icon: Sparkles,
+    badge: 'Future',
+  },
+  {
+    id: 'advanced-analytics',
+    label: 'Advanced Analytics',
+    path: '/advanced-analytics',
+    icon: TrendingUp,
+    badge: 'Deep',
+  },
+  {
+    id: 'ai-models',
+    label: 'AI Model Lab',
+    path: '/ai-models',
+    icon: FlaskConical,
+    badge: 'Code',
   },
   {
     id: 'players',

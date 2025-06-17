@@ -27,7 +27,14 @@ export interface LoginResponse {
     lastLoginAt: string
     createdAt: string
   }
-  token: TokenPair
+  token: {
+    accessToken: string
+    refreshToken: string
+    expiresAt: string // Backend sends DateTime as string
+    refreshExpiresAt: string
+    tokenType: string
+    scopes?: string[]
+  }
   errorMessage?: string
   requiresTwoFactor?: boolean
   twoFactorToken?: string
@@ -96,8 +103,14 @@ class AuthService {
         throw new Error('Two-factor authentication required')
       }
 
-      // Store tokens securely
-      tokenService.storeTokens(response.token)
+      // Store tokens securely - map backend response to TokenPair format
+      const tokenPair: TokenPair = {
+        accessToken: response.token.accessToken,
+        refreshToken: response.token.refreshToken,
+        expiresAt: response.token.expiresAt, // Backend sends DateTime string
+        tokenType: response.token.tokenType as 'Bearer'
+      }
+      tokenService.storeTokens(tokenPair)
 
       // Create user object
       const user: User = {

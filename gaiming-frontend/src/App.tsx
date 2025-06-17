@@ -38,6 +38,11 @@ const SystemTestingSuite = React.lazy(() => import('@/pages/SystemTestingSuite')
 const PerformanceDashboard = React.lazy(() => import('@/pages/PerformanceDashboard'))
 const FinalTestingSuite = React.lazy(() => import('@/pages/FinalTestingSuite'))
 const FeatureEnhancementPlanner = React.lazy(() => import('@/pages/FeatureEnhancementPlanner'))
+const AIInnovationLab = React.lazy(() => import('@/pages/AIInnovationLab'))
+const BusinessIntelligenceDashboard = React.lazy(() => import('@/pages/BusinessIntelligenceDashboard'))
+const NextGenAILab = React.lazy(() => import('@/pages/NextGenAILab'))
+const AdvancedAnalyticsPlatform = React.lazy(() => import('@/pages/AdvancedAnalyticsPlatform'))
+const AIModelLaboratory = React.lazy(() => import('@/pages/AIModelLaboratory'))
 const Login = React.lazy(() => import('@/pages/Login'))
 const NotFound = React.lazy(() => import('@/pages/NotFound'))
 
@@ -172,6 +177,21 @@ function App() {
 
             {/* Feature Enhancement Planner */}
             <Route path="feature-planner" element={<FeatureEnhancementPlanner />} />
+
+            {/* AI Innovation Lab */}
+            <Route path="ai-lab" element={<AIInnovationLab />} />
+
+            {/* Business Intelligence Dashboard */}
+            <Route path="business-intelligence" element={<BusinessIntelligenceDashboard />} />
+
+            {/* Next-Gen AI Lab */}
+            <Route path="nextgen-ai" element={<NextGenAILab />} />
+
+            {/* Advanced Analytics Platform */}
+            <Route path="advanced-analytics" element={<AdvancedAnalyticsPlatform />} />
+
+            {/* AI Model Laboratory */}
+            <Route path="ai-models" element={<AIModelLaboratory />} />
 
             {/* Admin Routes */}
             <Route path="admin/users" element={<UserManagement />} />

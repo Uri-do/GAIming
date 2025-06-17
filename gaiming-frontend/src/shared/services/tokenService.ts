@@ -21,13 +21,13 @@ export interface JWTPayload {
 export interface TokenPair {
   accessToken: string
   refreshToken: string
-  expiresIn: number
+  expiresAt: string | number // Can be DateTime string or seconds until expiration
   tokenType: 'Bearer'
 }
 
 export interface RefreshResponse {
   accessToken: string
-  expiresIn: number
+  expiresAt: string | number // Can be DateTime string or seconds until expiration
 }
 
 // Token storage keys
@@ -55,8 +55,21 @@ class TokenService {
    */
   storeTokens(tokenPair: TokenPair): void {
     try {
-      const { accessToken, refreshToken, expiresIn } = tokenPair
-      const expiryTime = Date.now() + (expiresIn * 1000)
+      const { accessToken, refreshToken, expiresAt } = tokenPair
+
+      // Handle both DateTime string and seconds until expiration
+      let expiryTime: number
+      if (typeof expiresAt === 'string') {
+        // Backend sends DateTime string, parse it
+        const expiryDate = new Date(expiresAt)
+        if (isNaN(expiryDate.getTime())) {
+          throw new Error('Invalid expiration date format')
+        }
+        expiryTime = expiryDate.getTime()
+      } else {
+        // Legacy format: seconds until expiration
+        expiryTime = Date.now() + (expiresAt * 1000)
+      }
 
       // Decode and validate access token
       const payload = this.decodeToken(accessToken)
@@ -68,7 +81,7 @@ class TokenService {
       this.setSecureItem(TOKEN_KEYS.ACCESS_TOKEN, accessToken)
       this.setSecureItem(TOKEN_KEYS.REFRESH_TOKEN, refreshToken)
       this.setSecureItem(TOKEN_KEYS.TOKEN_EXPIRY, expiryTime.toString())
-      
+
       // Store user data for quick access
       const userData: User = {
         id: payload.sub,
@@ -201,9 +214,21 @@ class TokenService {
       }
 
       const data: RefreshResponse = await response.json()
-      
+
       // Update stored access token
-      const expiryTime = Date.now() + (data.expiresIn * 1000)
+      let expiryTime: number
+      if (typeof data.expiresAt === 'string') {
+        // Backend sends DateTime string, parse it
+        const expiryDate = new Date(data.expiresAt)
+        if (isNaN(expiryDate.getTime())) {
+          throw new Error('Invalid expiration date format')
+        }
+        expiryTime = expiryDate.getTime()
+      } else {
+        // Legacy format: seconds until expiration
+        expiryTime = Date.now() + (data.expiresAt * 1000)
+      }
+
       this.setSecureItem(TOKEN_KEYS.ACCESS_TOKEN, data.accessToken)
       this.setSecureItem(TOKEN_KEYS.TOKEN_EXPIRY, expiryTime.toString())
 
